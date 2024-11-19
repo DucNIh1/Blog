@@ -1,0 +1,54 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"); */
+@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  /* font-family: "Poppins", serif; */
+  font-family: "Mona Sans", sans-serif;
+}
+
+.teaser {
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Giới hạn số dòng muốn hiển thị, thay đổi số này theo nhu cầu */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.teaserFeature {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Giới hạn số dòng muốn hiển thị, thay đổi số này theo nhu cầu */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pagination li {
+  display: flex;
+  aligin-items: center;
+  outline: none;
+  padding: 4px 8px;
+}
+
+.pagination a {
+  text-decoration: none;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+
+  font-weight: bold;
+}
+
+.active {
+  color: white;
+}
+.pagination a:first-child {
+  padding: 0;
+  border: 0;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
