@@ -87,13 +87,13 @@ const ResetPassword = () => {
         </div>
         <div className="relative lg:w-1/2  w-full lg:h-full h-48 order-1 lg:order-2">
           <img
-            src="https://res.cloudinary.com/dnjz0meqo/image/upload/v1731160325/mer8pqnrxqyj8en65xmn.png"
+            src="https://res.cloudinary.com/dnjz0meqo/image/upload/v1732017444/wdum4k8pkefzqdnzxsny.gif"
             alt=""
             className="object-cover h-full lg:w-full rounded-xl w-full "
           />
           <Link
             to={"/"}
-            className="absolute px-6 py-2 text-lg font-medium text-teal-500 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg top-1/2 left-1/2 hover:bg-teal-200 hover:text-white"
+            className="absolute px-6 py-2 text-lg font-medium text-teal-500 -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg top-1/2 left-1/2 hover:bg-teal-600 hover:text-white"
           >
             Let explore
           </Link>
