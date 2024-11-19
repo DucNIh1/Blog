@@ -30,7 +30,7 @@ const ResetPassword = () => {
         userId: userId,
       });
       setIsLoading(false);
-      navigate("/");
+      navigate("/login");
       toast.success(res.data?.message);
     } catch (error) {
       console.log(error);
