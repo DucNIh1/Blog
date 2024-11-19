@@ -26,6 +26,7 @@ const generateAccessToken = (user, res) => {
 
   res.cookie("accessToken", token, {
     httpOnly: true,
+    sameSite: "None",
     // secure: process.env.NODE_ENV === "production" ? true : false,
     maxAge: 1000 * 60 * 60,
   });
@@ -48,6 +49,7 @@ const generateRefreshToken = async (user, res) => {
 
   res.cookie("refreshToken", token, {
     httpOnly: true,
+    sameSite: "None",
     // secure: process.env.NODE_ENV === "production" ? true : false,
     maxAge: 1000 * 60 * 60 * 24 * 30,
   });
