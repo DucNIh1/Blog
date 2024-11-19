@@ -5,7 +5,6 @@ import cookieParser from "cookie-parser";
 import handleError from "./controllers/err.controller.js";
 import AppRouter from "./routes/index.js";
 import cors from "cors";
-import client from "./redis/config.js";
 
 dotenv.config();
 
@@ -30,7 +29,7 @@ const checkDatabaseConnection = async () => {
 
 checkDatabaseConnection();
 
-AppRouter(app); // Sử dụng router để quản lý các route
+AppRouter(app);
 
 app.use("*", (req, res, next) => {
   res.status(404).json({ message: "This route does not exist" });
