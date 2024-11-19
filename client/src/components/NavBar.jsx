@@ -93,21 +93,21 @@ const Navbar = () => {
           <Slider {...settings}>
             <div className="">
               <img
-                src="https://res.cloudinary.com/dnjz0meqo/image/upload/v1731152313/vigpyhiahmdbahjzkapa.png"
+                src="https://res.cloudinary.com/dnjz0meqo/image/upload/v1732016567/v5ylofuhca8taij1l0ix.jpg"
                 alt="A tall building with a dark sky background"
-                className="object-cover w-full h-[500px]"
+                className="object-cover w-full h-[500px] bg-black"
               />
             </div>
             <div className="">
               <img
-                src="https://res.cloudinary.com/dnjz0meqo/image/upload/v1731220845/eqea8esptrinkgemqtr1.png"
+                src="https://res.cloudinary.com/dnjz0meqo/image/upload/v1732016567/kfzqjxufnqxpmximp8fs.jpg"
                 alt="A tall building with a dark sky background"
                 className="object-cover w-full h-[500px]"
               />
             </div>
           </Slider>
         </div>
-
+        <div className="absolute inset-0 bg-black bg-opacity-35 bottom-[5px]"></div>
         <div className="absolute top-0 left-0 flex flex-col justify-between w-full h-full p-8 bg-opacity-50 lg:px-20 ">
           <div className="flex items-center justify-between text-white">
             <div className="flex items-center justify-between w-full py-5 mb-16 text-gray-900">
