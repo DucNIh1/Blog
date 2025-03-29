@@ -20,5 +20,5 @@ npm run server
 ```bash
 cd client
 npm install
-npm run server
+npm run dev
 ```
