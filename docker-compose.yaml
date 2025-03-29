@@ -1,0 +1,22 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: blog-db
+    restart: always
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', '0.0.0.0']
+      timeout: 10s
+      retries: 10
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - '${DB_PORT}:3306'
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./backend/db/init:/docker-entrypoint-initdb.d
+
+volumes:
+  mysql-data:

@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { OAuth2Client } from "google-auth-library";
 import { userValidate } from "../utils/Validation.js";
-import redisClient from "../redis/config.js";
+// import redisClient from "../redis/config.js";
 import {
   sendPasswordResetEmail,
   sendResetSuccessEmail,
