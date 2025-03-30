@@ -43,9 +43,9 @@ const generateRefreshToken = async (user, res) => {
     }
   );
 
-  await redisClient.set(user.id.toString(), `${token}`, {
-    EX: 60 * 60 * 24 * 30,
-  });
+  // await redisClient.set(user.id.toString(), `${token}`, {
+  //   EX: 60 * 60 * 24 * 30,
+  // });
 
   res.cookie("refreshToken", token, {
     httpOnly: true,
@@ -94,9 +94,9 @@ export const signup = catchAsync(async (req, res, next) => {
 
   // Lưu vô redis
   const verifyKey = `verify:${userId}`;
-  await redisClient.set(verifyKey, verificationToken, {
-    EX: 60 * 60 * 24, // 1 ngày
-  });
+  // await redisClient.set(verifyKey, verificationToken, {
+  //   EX: 60 * 60 * 24, // 1 ngày
+  // });
 
   // Send email
   await sendVerificationEmail(email, verificationToken);
@@ -147,9 +147,9 @@ export const login = catchAsync(async (req, res, next) => {
 
     // Lưu vô redis
     const verifyKey = `verify:${user.id}`;
-    await redisClient.set(verifyKey, verificationToken, {
-      EX: 60 * 60 * 24, // 1 ngày
-    });
+    // await redisClient.set(verifyKey, verificationToken, {
+    //   EX: 60 * 60 * 24, // 1 ngày
+    // });
 
     // Send email
     await sendVerificationEmail(email, verificationToken);
@@ -185,7 +185,7 @@ export const logout = async (req, res, next) => {
     if (!token) return next(new AppError("Unauthorized", 401));
 
     const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
-    await redisClient.del(decoded.userId.toString());
+    // await redisClient.del(decoded.userId.toString());
 
     res.clearCookie("refreshToken", {
       httpOnly: true,
@@ -303,11 +303,11 @@ export const refreshToken = catchAsync(async (req, res, next) => {
     }
 
     // Check token trong redis
-    const storedToken = await redisClient.get(decoded.userId.toString());
+    // const storedToken = await redisClient.get(decoded.userId.toString());
 
-    if (!storedToken || storedToken !== token) {
-      return next(new AppError("Unauthorized. Token mismatch.", 401));
-    }
+    // if (!storedToken || storedToken !== token) {
+    //   return next(new AppError("Unauthorized. Token mismatch.", 401));
+    // }
 
     const accessToken = generateAccessToken(
       {
@@ -345,12 +345,12 @@ export const verifyEmail = catchAsync(async (req, res, next) => {
   }
 
   // Check code matches
-  const verifyCode = await redisClient.get(`verify:${userId}`);
+  // const verifyCode = await redisClient.get(`verify:${userId}`);
 
-  if (!verifyCode) return next(new AppError("Invalid verification code", 400));
+  // if (!verifyCode) return next(new AppError("Invalid verification code", 400));
 
-  if (code !== verifyCode)
-    return next(new AppError("Invalid verification code", 400));
+  // if (code !== verifyCode)
+  //   return next(new AppError("Invalid verification code", 400));
 
   const q = "UPDATE users SET isVerified = 1 WHERE id = ?";
 
@@ -361,7 +361,7 @@ export const verifyEmail = catchAsync(async (req, res, next) => {
   const refreshToken = await generateRefreshToken(users[0], res);
 
   // Xóa verify token trong redis
-  await redisClient.del(`verify:${userId}`);
+  // await redisClient.del(`verify:${userId}`);
 
   res.status(200).json({
     message: "Verified account successfully",
@@ -392,9 +392,9 @@ export const forgotPassword = catchAsync(async (req, res, next) => {
   const resetToken = crypto.randomBytes(32).toString("hex");
 
   // Lưu vô redis
-  await redisClient.set(`resetToken:${user.id}`, resetToken, {
-    EX: 60 * 15, // 15m
-  });
+  // await redisClient.set(`resetToken:${user.id}`, resetToken, {
+  //   EX: 60 * 15, // 15m
+  // });
 
   await sendPasswordResetEmail(
     email,
@@ -417,9 +417,9 @@ export const resetPassword = catchAsync(async (req, res, next) => {
 
   if (users.length === 0) return next(new AppError("User not found", 400));
 
-  const resetToken = await redisClient.get(`resetToken:${userId}`);
+  // const resetToken = await redisClient.get(`resetToken:${userId}`);
 
-  if (resetToken !== token) return next("Invalid reset password token", 400);
+  // if (resetToken !== token) return next("Invalid reset password token", 400);
 
   const hashPassword = await bcrypt.hash(password, 10);
 
@@ -428,7 +428,7 @@ export const resetPassword = catchAsync(async (req, res, next) => {
     userId,
   ]);
 
-  await redisClient.del(`resetToken:${user.id}`);
+  // await redisClient.del(`resetToken:${user.id}`);
   await sendResetSuccessEmail(user.email);
 
   res.status(200).json({ message: "Password recovery successful!" });
