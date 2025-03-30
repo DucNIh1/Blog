@@ -1,4 +1,24 @@
+import { FaFacebook, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { Link } from "react-router-dom";
+
+const SOCIAL_MEDIAS = [
+  {
+    title: "Facebook",
+    icon: FaFacebook
+  },
+  {
+    title: "Instagram",
+    icon: FaInstagram
+  },
+  {
+    title: "Twitter",
+    icon: FaTwitter
+  },
+  {
+    title: "Youtube",
+    icon: FaYoutube
+  }
+];
 
 const Footer = () => {
   return (
@@ -7,21 +27,34 @@ const Footer = () => {
         <h1 className="text-lg font-bold text-primaryText">Gemme Studio.</h1>
         <ul className="flex flex-col gap-5 text-sm font-medium text-slate-300 md:flex-row">
           <li>
-            <Link> About Studio</Link>
+            <Link>About Studio</Link>
           </li>
           <li>
             <Link>Archive</Link>
           </li>
           <li>
-            <Link>Contact Us</Link>
+            <Link>Policies</Link>
           </li>
         </ul>
       </div>
-      <div className="bg-[#E5E5E5] h-[1px] w-full mt-5 mb-20"></div>
+      <div className="bg-[#E5E5E5] h-[1px] w-full mt-5 mb-20 text-slate-300">
+        <div className="float-right mt-4">
+          <h4 className="text-sm text-right">Contact us</h4>
+          <ul className="flex items-center gap-4 mt-2 [&>li]:cursor-pointer">
+            {SOCIAL_MEDIAS.map(item => {
+              return (
+                <li title={item.title} key={item.title} className="hover:text-white transition-colors">
+                  <item.icon />
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      </div>
 
       <div className="flex justify-between gap-2 text-sm font-medium text-slate-300">
-        <p>From Dong Anh, Ha Noi, VN</p>
-        <p>© 2024, All Rights Reserved</p>
+        <p>Copyright © 2025 by GEMME.</p>
+        <p>All Rights Reserved</p>
       </div>
     </div>
   );
