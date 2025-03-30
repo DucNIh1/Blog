@@ -125,19 +125,7 @@ export const getReleatedPosts = catchAsync(async (req, res, next) => {
 //admin
 export const setFeaturedPost = catchAsync(async (req, res, next) => {
   const { id } = req.params;
-  const { cat, isFeatured } = req.body;
-  if (+isFeatured === 1) {
-    const [rows] = await pool.execute(
-      "SELECT COUNT(*) AS featured_count FROM posts WHERE cat_id = ? AND isFeatured = 1",
-      [cat]
-    );
-    console.log(rows[0]);
-    if (rows[0].featured_count >= 3) {
-      return next(
-        new AppError("This category has enough featured articles.", 400)
-      );
-    }
-  }
+  const { isFeatured } = req.body;
 
   await pool.query("UPDATE posts SET isFeatured = ? WHERE id = ?", [
     isFeatured,
@@ -152,10 +140,7 @@ export const deletePost = catchAsync(async (req, res, next) => {
 
   const id = req.params.id;
 
-  let q =
-    role === "admin"
-      ? "DELETE  FROM posts WHERE id = ?"
-      : "DELETE  FROM posts WHERE id = ? AND user_id = ?";
+  let q = "DELETE  FROM posts WHERE id = ?"
 
   const [result] = await pool.query(q, [id, userId]);
 
@@ -170,10 +155,9 @@ export const deletePost = catchAsync(async (req, res, next) => {
 
 export const updatePost = catchAsync(async (req, res, next) => {
   const id = req.params.id;
-  const { userId } = req.user;
   const { title, content, img, cat_id, teaser } = req.body;
   const q =
-    "UPDATE posts SET title = ?, content = ?, img = ?, cat_id= ?, teaser= ? WHERE id = ? AND user_id = ?";
+    "UPDATE posts SET title = ?, content = ?, img = ?, cat_id= ?, teaser= ? WHERE id = ?";
 
   const [result] = await pool.query(q, [
     title,
@@ -182,13 +166,12 @@ export const updatePost = catchAsync(async (req, res, next) => {
     cat_id,
     teaser,
     id,
-    userId,
   ]);
 
   if (result.affectedRows === 0) {
     return next(
       new AppError(
-        "Post not found or you don't have permission to update this post",
+        "Post not found",
         404
       )
     );
@@ -199,7 +182,7 @@ export const updatePost = catchAsync(async (req, res, next) => {
 
 export const createPost = catchAsync(async (req, res, next) => {
   const { userId } = req.user;
-  const { title, content, img, cat_id, teaser, status } = req.body;
+  const { title, content, img, cat_id, teaser, status = "draft" } = req.body;
 
   if (!title || !content || !img || !cat_id || !teaser)
     return next(new AppError("Please fill all required fields"));
@@ -220,25 +203,6 @@ export const createPost = catchAsync(async (req, res, next) => {
     status: "success",
     message: "Post created successfully",
   });
-});
-
-//User publish their post
-export const publishPost = catchAsync(async (req, res, next) => {
-  const { userId } = req.user;
-  const { id } = req.params;
-
-  const q =
-    "UPDATE posts SET status = 'pending' WHERE id = ? AND status = 'draft' AND user_id = ?";
-
-  const [result] = await pool.query(q, [id, userId]);
-
-  if (result.affectedRows === 0) {
-    return res
-      .status(404)
-      .json({ message: "Post not found or already published." });
-  }
-
-  res.status(200).json({ message: "Published successfully", result: result });
 });
 
 //admin

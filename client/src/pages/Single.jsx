@@ -43,12 +43,9 @@ const Single = () => {
           content: comment,
           post_id: id,
         });
-        console.log(res);
-        toast.success("Comment successfully");
         setComment("");
       } catch (error) {
-        toast.error("Comment failed to be created");
-        console.log(error);
+        toast.error("Something went wrong!");
       }
     },
 
@@ -62,7 +59,6 @@ const Single = () => {
       try {
         await axiosConfig.patch(`/api/comments/${commentId}/like`);
       } catch (error) {
-        console.log(error);
       }
     },
     onSuccess: () => {
@@ -74,7 +70,6 @@ const Single = () => {
     const handleFetchPosts = async () => {
       try {
         const res = await axiosConfig.get("/api/posts/" + id);
-
         setPost(res.data?.post);
       } catch (error) {
         console.log(error);
@@ -92,8 +87,11 @@ const Single = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-20 mb-20 lg:gap-5 lg:flex-row">
+    <div className="flex flex-col gap-20 p-20 mb-20 lg:gap-5 lg:flex-row">
       <div className="w-full lg:w-2/3 ">
+        <h1 className="mb-10 text-4xl font-bold text-gray-900">
+          {post?.title}
+        </h1>
         <img
           src={post?.img}
           alt=""
@@ -104,40 +102,27 @@ const Single = () => {
             <img
               src={post?.user_img}
               alt=""
-              className="object-cover w-20 h-20 rounded-full  hover:scale-110 transition-all ease-in-out"
+              className="object-cover w-20 h-20 transition-all ease-in-out rounded-full hover:scale-110"
             />
           </Link>
           <div className="flex flex-col gap-2">
             <p className="font-semibold hover:text-teal-500">
               <Link to={`/author/${post?.user_id}`}>{post?.username}</Link>
             </p>
-            <p className=" first-letter:uppercase">
-              {moment(post?.updated_at).format("MMM Do YY")}
+            <p className="first-letter:uppercase">
+              {moment(post?.updated_at).format("DD/MM/YYYY")}
             </p>
           </div>
 
-          {user?.email === post?.email && (
-            <div className="flex items-center gap-2">
-              <Link to={"/write"} state={post}>
-                <FaPencil className="p-1 text-white bg-blue-400 rounded-full cursor-pointer size-6" />
-              </Link>
-            </div>
-          )}
-        </div>
-        <p className="mb-10 text-sm text-slate-600">
-          Click on the avatar for more infor about the author!
-        </p>
 
-        <h1 className="mb-10 text-4xl font-bold text-gray-900">
-          {post?.title}
-        </h1>
+        </div>
         <p
           className="mb-20 leading-8 text-justify text-gray-900"
           dangerouslySetInnerHTML={{ __html: post?.content }}
         />
 
         <div className="pt-5 border-t border-gray-200">
-          <h2 className="mb-5 text-2xl font-medium text-teal-800 ">Comment</h2>
+          <h2 className="flex items-center gap-4 mb-5 text-2xl font-semibold"><span className="inline-block w-8 h-2 bg-red-600 rounded-xl"></span>Bình luận</h2>
           <div className="flex items-center w-full gap-5 mb-10">
             <ReactQuill
               className="w-full"
@@ -146,11 +131,11 @@ const Single = () => {
               onChange={setComment}
             />
             <IoIosSend
-              className="cursor-pointer size-10 hover:text-teal-600 hover:scale-125"
+              className="cursor-pointer size-10 hover:text-red-600 hover:scale-125"
               onClick={() => {
                 user
                   ? commentMutation.mutate()
-                  : toast.info("Hey, Let's login to write a comment😁");
+                  : toast.info("Này, hãy đăng nhập để viết một bình luận😁");
               }}
             />
           </div>
@@ -174,9 +159,8 @@ const Single = () => {
                     <div className="flex gap-10">
                       <button
                         disabled={!user}
-                        className={`inline-flex items-center gap-1 cursor-pointer hover:text-teal-600   ${
-                          c.isLiked == 1 ? "text-pink-500" : "text-slate-600"
-                        }`}
+                        className={`inline-flex items-center gap-1 cursor-pointer hover:text-red-600   ${c.isLiked == 1 ? "text-red-600" : "text-slate-600"
+                          }`}
                         onClick={() => likeMutation.mutate(c.id)}
                       >
                         <AiOutlineLike className={`size-6 `} />

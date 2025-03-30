@@ -28,7 +28,6 @@ import EditPassword from "./pages/profile/EditPassword";
 import EditSocial from "./pages/profile/EditSocial";
 import Profile from "./pages/profile/Profile";
 import Draft from "./pages/MyPosts/Draft";
-import Pending from "./pages/MyPosts/Pending";
 import Published from "./pages/MyPosts/Published";
 import MyPosts from "./pages/MyPosts/MyPosts";
 import Author from "./pages/Author";
@@ -48,7 +47,7 @@ const Layout = () => {
   return (
     <div className="">
       <NavBar openProfile={openProfile} setOpenProfile={setOpenProfile} />
-      <div className="container px-5 mx-auto md:px-10 lg:px-20">
+      <div className="container px-5 mx-auto md:px-10 lg:px-20 ">
         <Outlet />
       </div>
       <Footer />
@@ -96,10 +95,6 @@ const router = createBrowserRouter([
           {
             path: "draft",
             element: <Draft />,
-          },
-          {
-            path: "pending",
-            element: <Pending />,
           },
           {
             path: "published",

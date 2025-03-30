@@ -14,6 +14,7 @@ const AuthContexProvider = ({ children }) => {
   const login = async (data) => {
     const res = await axiosConfig.post("/api/auth/login", data);
     if (!res.data.user) return res;
+    localStorage.setItem("accessToken", res.data.accessToken)
     setUser(res.data?.user);
     return res;
   };
@@ -29,16 +30,6 @@ const AuthContexProvider = ({ children }) => {
     return res;
   };
 
-  const handleLoginWithGoogle = async (credentialResponse) => {
-    try {
-      const res = await axiosConfig.post(`/api/auth/google-auth`, {
-        token: credentialResponse.credential,
-      });
-      setUser(res.data?.user);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(user));
@@ -52,7 +43,6 @@ const AuthContexProvider = ({ children }) => {
         logout,
         register,
         setUser,
-        handleLoginWithGoogle,
         openProfile,
         setOpenProfile,
       }}

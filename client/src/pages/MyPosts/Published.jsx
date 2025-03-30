@@ -8,9 +8,8 @@ import moment from "moment";
 import Pagination from "../../components/Pagination";
 
 const statusColors = {
-  draft: "bg-slate-400",
-  published: "bg-green-800",
-  pending: "bg-yellow-600",
+  draft: "bg-slate-900",
+  published: "bg-blue-900",
 };
 
 const Published = () => {
@@ -39,15 +38,14 @@ const Published = () => {
     };
     fetchPosts();
   }, [page, refetch]);
-
   const handleDelete = async (id) => {
     try {
-      const res = await axiosConfig.delete(`/api/posts/${id}`);
-      toast.success(res.data?.message || "Deleted successfully");
+      await axiosConfig.delete(`/api/posts/${id}`);
+      toast.success("Xóa bài viết thành công");
       setOpenDelete(false);
       setRefetch((pre) => pre + 1);
     } catch (error) {
-      toast.error("Delete failed");
+      toast.error("Xóa bài viết thất bại");
       console.log(error);
     }
   };
@@ -68,24 +66,23 @@ const Published = () => {
               />
               <div className="flex flex-col gap-4">
                 <p className="text-sm text-slate-600">
-                  {moment(post?.updated_at).format("MMM Do YY")}
+                  {moment(post?.updated_at).format("DD/MM/YYYY")}
                 </p>
-                <h2 className="text-lg font-medium cursor-pointer text-slate-950 hover:text-teal-600">
+                <h2 className="text-lg font-medium cursor-pointer text-slate-950 hover:text-[#ad2a28] ">
                   <Link to={`/post/${post?.id}`}>{post?.title}</Link>
                 </h2>
                 <div className="flex flex-row gap-5 lg:flex-col">
                   <div className="">
-                    <span className="px-4 py-1 text-sm font-medium rounded-md bg-slate-100 text-slate-600">
+                    <span className="px-4 py-1 text-sm font-medium bg-slate-100 text-slate-600">
                       {post?.cat_name}
                     </span>
                   </div>
                   <div className="">
                     <span
-                      className={`text-sm px-4 py-1 rounded-md text-primaryText  first-letter:uppercase ${
-                        statusColors[post?.status]
-                      }`}
+                      className={`text-sm px-4 py-1  text-primaryText  first-letter:uppercase ${statusColors[post?.status]
+                        }`}
                     >
-                      {post?.status}
+                      {post?.status == 'published' ? 'Đã xuất bản' : 'Bản nháp'}
                     </span>
                   </div>
                 </div>
@@ -93,11 +90,11 @@ const Published = () => {
             </div>
             <div className="flex gap-5 lg:gap-10">
               <Link to={"/write"} state={post}>
-                <FaPencil className="p-1 text-white transition-all duration-100 ease-out bg-blue-400 rounded-full cursor-pointer size-6 hover:scale-110 hover:bg-blue-800" />
+                <FaPencil className="p-1 text-white transition-all duration-100 ease-out bg-blue-600 rounded-full cursor-pointer size-6 hover:scale-110 hover:bg-blue-800" />
               </Link>
               <FaRegTrashCan
                 onClick={() => setOpenDelete(post?.id)}
-                className="p-1 text-white transition-all duration-100 ease-out bg-red-400 rounded-full cursor-pointer size-6 hover:scale-110 hover:bg-red-800"
+                className="p-1 text-white transition-all duration-100 ease-out bg-red-600 rounded-full cursor-pointer size-6 hover:scale-110 hover:bg-red-800"
               />
               <DeleteModal
                 open={openDelete === post?.id}
@@ -111,7 +108,7 @@ const Published = () => {
       {posts?.length > 0 ? (
         <Pagination page={page} setPage={setPage} total={total} />
       ) : (
-        <img src="https://res.cloudinary.com/dnjz0meqo/image/upload/v1731905318/zdpduoe3wi13rebwfg7y.png" />
+        <h1 className="my-10 text-xl text-center">Bạn chưa có bài viết nào!</h1>
       )}
     </div>
   );

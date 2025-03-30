@@ -25,9 +25,9 @@ const Menu = ({ cat_id, post_id }) => {
   }, [cat_id, post_id]);
 
   return (
-    <div className="w-full mx-auto mb-20 md:px-10 ">
-      <h1 className="mb-10 text-2xl font-medium text-teal-800 text">
-        Relate blogs
+    <div className="w-full p-10 mx-auto mb-20 ml-5 rounded-xl md:px-10 bg-red-50">
+      <h1 className="flex items-center gap-2 mb-10 text-2xl font-semibold">
+        <span className="inline-block w-8 h-2 bg-red-600 rounded-xl"></span><span>Tin tức liên quan</span>
       </h1>
       <div className="flex flex-col gap-5">
         {relatedPosts?.length > 0 &&
@@ -39,7 +39,7 @@ const Menu = ({ cat_id, post_id }) => {
                 className="object-cover max-w-[160px] min-w-[160px]  md:w-[200px] md:min-w-[200px] h-32"
               />
               <div className="flex flex-col gap-3">
-                <p className="text-sm text-gray-600 hover:text-teal-600">
+                <p className="text-sm font-semibold text-gray-600 hover:text-red-600">
                   <Link to={`/post/${post?.id}`}>{post.title}</Link>
                 </p>
                 <div className="">
