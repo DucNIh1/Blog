@@ -10,7 +10,6 @@ const checkAuth = (req, res, next) => {
   if (!token) {
     return next(new AppError("JWT token is missing. Please log in.", 401));
   }
-
   jwt.verify(token, process.env.JWT_ACCESS_SECRET, (err, decoded) => {
     if (err) {
       if (err.name === "JsonWebTokenError") {

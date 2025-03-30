@@ -83,9 +83,9 @@ const Navbar = () => {
           to="top"
           smooth={true}
           duration={500}
-          className="fixed top-2/3 right-5 z-[999]"
+          className="fixed top-3/4 right-5 z-[999] bg-black p-3 rounded-lg"
         >
-          <IoMdArrowRoundUp className="cursor-pointer size-10 hover:opacity-85 z-[999] text-slate-950" />
+          <IoMdArrowRoundUp className="cursor-pointer size-5 hover:opacity-85 z-[999] text-white" />
         </ScrollLink>
       )}
       <header className="relative mb-20 overflow-hidden " id="top">
@@ -186,11 +186,10 @@ const Nav = ({ categories = [] }) => {
                   `text-primaryText relative overflow-hidden
                         after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] 
                         after:bg-lightColor after:transition-all after:duration-500 
-                        ${
-                          isActive
-                            ? "after:w-full after:bg-lightColor"
-                            : "after:w-0"
-                        }
+                        ${isActive
+                    ? "after:w-full after:bg-lightColor"
+                    : "after:w-0"
+                  }
                         hover:after:w-full hover:after:bg-lightColor hover:after:scale-100`
                 }
                 to={`/blog/${cat.id}`}
@@ -206,15 +205,15 @@ const Nav = ({ categories = [] }) => {
       >
         <button
           onMouseOver={() => setIsOpenNav(true)}
-          className="text-white uppercase flex items-center gap-2"
+          className="flex items-center gap-2 text-white uppercase"
         >
           <span>More categories</span>
           <FaChevronDown />
         </button>
 
         {isOpenNav && (
-          <div className="absolute z-10 bg-slate-950 divide-y divide-gray-100 rounded-lg shadow w-44 bg-opacity-20">
-            <ul className="py-4 text-sm flex flex-col p-4 gap-3 ">
+          <div className="absolute z-10 divide-y divide-gray-100 rounded-lg shadow bg-slate-950 w-44 bg-opacity-20">
+            <ul className="flex flex-col gap-3 p-4 py-4 text-sm ">
               {categories &&
                 categories.map((cat, index) => {
                   if (index >= 3)
@@ -225,11 +224,10 @@ const Nav = ({ categories = [] }) => {
                           `text-primaryText relative overflow-hidden
                         after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] 
                         after:bg-lightColor after:transition-all after:duration-500 
-                        ${
-                          isActive
+                        ${isActive
                             ? "after:w-full after:bg-lightColor"
                             : "after:w-0"
-                        }
+                          }
                         hover:after:w-full hover:after:bg-lightColor hover:after:scale-100`
                         }
                         to={`/blog/${cat.id}`}
@@ -306,38 +304,48 @@ const PersonDropdown = ({
 
         <div
           ref={ref}
-          className={`z-10 absolute top-full  ${
-            open ? "block" : "hidden"
-          } bg-white divide-y divide-gray-100 rounded-lg shadow w-44`}
+          className={`z-10 absolute top-full  ${open ? "block" : "hidden"
+            } bg-white divide-y divide-gray-100 rounded-lg shadow w-44`}
         >
           <div className="px-4 py-3 text-sm text-gray-900 ">
             <div className="font-medium ">{username}</div>
             <div className="truncate">{email}</div>
           </div>
           <ul className="px-1 py-2 text-sm text-gray-700">
-            <li>
-              <Link
-                to={"/write"}
-                onClick={() => setOpen(false)}
-                className="flex items-center gap-3 px-4 py-2 font-medium text-teal-600 hover:bg-gray-100"
-              >
-                <TfiWrite className="size-5" />
 
-                <span>Write</span>
-              </Link>
-            </li>
             {role === "admin" && (
-              <li>
-                <Link
-                  to={"/admin"}
-                  onClick={() => setOpen(false)}
-                  className="flex items-center gap-3 px-4 py-2 font-medium text-teal-600 border-b hover:bg-gray-100"
-                >
-                  <MdOutlineDashboard className="size-5" />
+              <>
+                <li>
+                  <Link
+                    to={"/write"}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center gap-3 px-4 py-2 font-medium text-[#E7423E] hover:bg-gray-100"
+                  >
+                    <TfiWrite className="size-5" />
 
-                  <span>Admin </span>
-                </Link>
-              </li>
+                    <span>Viết bài</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to={"/admin"}
+                    onClick={() => setOpen(false)}
+                    className="flex items-center gap-3 px-4 py-2 font-medium text-[#E7423E] border-b hover:bg-gray-100"
+                  >
+                    <MdOutlineDashboard className="size-5" />
+                    <span>Admin </span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    onClick={() => setOpen(false)}
+                    to={"/my-posts/draft"}
+                    className="block px-4 py-2 hover:bg-gray-100 "
+                  >
+                    Bài viết của tôi
+                  </Link>
+                </li>
+              </>
             )}
             <li>
               <Link
@@ -345,22 +353,14 @@ const PersonDropdown = ({
                 to={"/account/edit-profile"}
                 className="block px-4 py-2 cursor-pointer hover:bg-gray-100"
               >
-                Profile
+                Thông tin cá nhân
               </Link>
             </li>
-            <li>
-              <Link
-                onClick={() => setOpen(false)}
-                to={"/my-posts/draft"}
-                className="block px-4 py-2 hover:bg-gray-100 "
-              >
-                My posts
-              </Link>
-            </li>
+
           </ul>
           <div className="py-2 cursor-pointer" onClick={handleLogout}>
-            <span className="block px-4 py-2 text-sm font-medium text-teal-600 hover:bg-gray-100 ">
-              Sign out
+            <span className="block px-4 py-2 text-sm font-medium text-[#E7423E] hover:bg-gray-100 ">
+              Đăng xuất
             </span>
           </div>
         </div>
@@ -442,7 +442,7 @@ const MobileMenu = ({
                 <li>
                   <Link
                     onClick={handleLogout}
-                    className="block px-4 py-2 hover:text-teal-500  "
+                    className="block px-4 py-2 hover:text-teal-500 "
                   >
                     logout
                   </Link>

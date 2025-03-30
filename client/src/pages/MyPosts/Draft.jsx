@@ -35,7 +35,6 @@ const Draft = () => {
         setTotal(res.data?.total);
         setPosts(res.data?.posts);
       } catch (error) {
-        console.log(error);
       }
     };
     fetchPosts();
@@ -43,23 +42,21 @@ const Draft = () => {
 
   const handleDelete = async (id) => {
     try {
-      const res = await axiosConfig.delete(`/api/posts/${id}`);
-      toast.success(res.data?.message || "Deleted successfully");
+      await axiosConfig.delete(`/api/posts/${id}`);
+      toast.success("Xóa bài viết thành công");
       setOpenDelete(false);
       setRefetch((pre) => pre + 1);
     } catch (error) {
-      toast.error("Delete failed");
-      console.log(error);
+      toast.error("Something went wrong!");
     }
   };
 
   const handlePublish = async (id) => {
     try {
-      const res = await axiosConfig.patch(`/api/posts/${id}/publish`);
+      const res = await axiosConfig.patch(`/api/posts/${id}/status`, { status: 'published' });
       toast(res.data?.message);
       setRefetch((pre) => pre + 1);
     } catch (error) {
-      console.log(error);
     }
   };
 
@@ -81,7 +78,7 @@ const Draft = () => {
               />
               <div className="flex flex-col gap-4">
                 <p className="text-sm text-slate-600">
-                  {moment(post?.updated_at).format("MMM Do YY")}
+                  {moment(post?.updated_at).format("DD/MM/YYYY")}
                 </p>
                 <h2 className="text-lg font-medium cursor-pointer text-slate-950 hover:text-teal-600">
                   <Link to={`/post/${post?.id}`}>{post?.title}</Link>
@@ -94,9 +91,8 @@ const Draft = () => {
                   </div>
                   <div className="">
                     <span
-                      className={`text-sm px-4 py-1 rounded-md text-primaryText  first-letter:uppercase ${
-                        statusColors[post?.status]
-                      }`}
+                      className={`text-sm px-4 py-1 rounded-md text-primaryText  first-letter:uppercase ${statusColors[post?.status]
+                        }`}
                     >
                       {post?.status}
                     </span>
@@ -134,7 +130,7 @@ const Draft = () => {
       {posts?.length > 0 ? (
         <Pagination page={page} setPage={setPage} total={total} />
       ) : (
-        <img src="https://res.cloudinary.com/dnjz0meqo/image/upload/v1731905318/zdpduoe3wi13rebwfg7y.png" />
+        <h1 className="my-10 text-xl text-center">Bạn chưa có bài viết nào!</h1>
       )}
     </div>
   );

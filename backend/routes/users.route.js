@@ -23,7 +23,7 @@ router.put("/profile", updateProfile);
 router.delete("/delete-me", deleteMe);
 
 // admin
-router.use(checkRole("admin"));
+// router.use(checkRole("admin"));
 router.get("/", getAllUsers);
 router.patch("/:id/active", changeUserStatus);
 router.patch("/:id/role", changeUserRole);

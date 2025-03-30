@@ -121,9 +121,12 @@ const Write = () => {
       <div className="flex-1 menu ">
         <div className="p-5 mb-5 border">
           <h1 className="mb-10 text-xl font-medium text-center text-gray-600 uppercase">
-            Upload Image
+            Tải ảnh lên
           </h1>
-          <p className="mb-3">Status: {state?.status || "Draft"}</p>
+          <p className="mb-3">
+            <span className="font-semibold">Trạng thái</span>: {state?.status === "published" ? "Đã xuất bản" : state?.status === "draft" ? "Bản nháp" : "Bản nháp"}
+          </p>
+
           <div className="relative flex items-center justify-center mb-10 border w-full min-h-[200px]">
             <input
               type="file"
@@ -167,52 +170,43 @@ const Write = () => {
             {state && state.status === "draft" && (
               <>
                 <button
-                  className="px-4 py-2 text-teal-600 border border-teal-600"
+                  className="px-4 py-2 text-[#E7423E] border border-[#E7423E]"
                   onClick={() => handleClick("draft")}
                 >
-                  Save
+                  Lưu
                 </button>
                 <button
-                  className="px-4 py-2 text-white bg-teal-600 hover:bg-opacity-80"
-                  onClick={() => handleClick("pending")}
+                  className="px-4 py-2 text-white bg-[#E7423E] hover:bg-opacity-80"
+                  onClick={() => handleClick("published")}
                 >
-                  Publish
+                  Xuất bản
                 </button>
               </>
             )}
-            {state && state.status === "pending" && (
-              <>
-                <button
-                  className="px-4 py-2 text-teal-600 border border-teal-600"
-                  onClick={() => handleClick("pending")}
-                >
-                  Save
-                </button>
-              </>
-            )}
+
             {state && state.status === "published" && (
               <>
                 <button
                   className="px-4 py-2 text-teal-600 border border-teal-600"
                   onClick={() => handleClick("published")}
                 >
-                  Save
+                  Lưu
                 </button>
               </>
             )}
             {!state && (
               <>
                 <button
-                  className="px-4 py-2 text-teal-600 border border-teal-600"
+                  className="px-4 py-2 text-[#E7423E] border border-[#E7423E]"
                   onClick={() => handleClick("draft")}
                 >
-                  Save as a draff
+                  Lưu bản nháp
                 </button>
                 <button
-                  className="px-4 py-2 text-white bg-teal-600 hover:bg-opacity-80"
-                  onClick={() => handleClick("pending")}
+                  className="px-4 py-2 text-white bg-[#E7423E] hover:bg-opacity-80"
+                  onClick={() => handleClick("published")}
                 >
-                  Publish
+                  Xuất bản
                 </button>
               </>
             )}
@@ -220,7 +214,7 @@ const Write = () => {
         </div>
         <div className="p-5 border">
           <h1 className="mb-5 text-lg font-medium uppercase text-slate-950">
-            Category
+            Danh mục
           </h1>
           <div className="flex flex-col gap-2">
             {categories?.length > 0 &&
