@@ -1,29 +1,25 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import DeleteModal from "../../components/DeleteModal";
 import axiosConfig from "../../axios/config";
+import { useEffect, useState } from "react";
+import Pagination from "../../components/Pagination";
+import DeleteModal from "../../components/DeleteModal";
 import { toast } from "react-toastify";
 import { RiSearchLine } from "react-icons/ri";
-import Pagination from "../../components/Pagination";
-import { useState } from "react";
-import { FaPencil } from "react-icons/fa6";
-import { GoPlus } from "react-icons/go";
+
+// Màu sắc trạng thái
+const statusColors = {
+  active: "border-green-600 text-green-700 bg-green-50",
+  inactive: "border-red-600 text-red-700 bg-red-50",
+};
 
 const Categories = () => {
   const queryClient = useQueryClient();
-  const [openDelete, setOpenDelete] = useState(null);
+  const [openDelete, setOpenDelete] = useState(false);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(null);
   const [status, setStatus] = useState(null);
   const [tempName, setTempName] = useState("");
   const [name, setName] = useState(null);
-
-  //for change name
-  const [openRename, setOpenRename] = useState(false);
-  const [newName, setNewName] = useState("");
-
-  // for add
-  const [openAdd, setOpenAdd] = useState(false);
-  const [newCategory, setNewCategory] = useState("");
 
   const { data: categories } = useQuery({
     queryKey: ["categories", { page, status, name }],
@@ -31,10 +27,10 @@ const Categories = () => {
       try {
         const res = await axiosConfig.get("/api/category", {
           params: {
-            page: page,
+            page,
             limit: 4,
             isActive: status,
-            name: name,
+            name,
           },
         });
         setTotal(res.data?.totalPages);
@@ -49,10 +45,10 @@ const Categories = () => {
     mutationFn: async (id) => {
       try {
         const res = await axiosConfig.delete(`/api/category/${id}`);
-        toast.success(res.data?.message || "Deleted successfully");
-        setOpenDelete(null);
+        toast.success(res.data?.message || "Xóa thành công");
+        setOpenDelete(false);
       } catch (error) {
-        toast.error("Delete failed");
+        toast.error("Xóa thất bại");
         console.log(error);
       }
     },
@@ -68,7 +64,6 @@ const Categories = () => {
           isActive,
         });
         toast.success(res.data?.message);
-        console.log(res);
       } catch (error) {
         console.log(error);
       }
@@ -78,221 +73,117 @@ const Categories = () => {
     },
   });
 
-  const changeNameMutation = useMutation({
-    mutationFn: async ({ id, name }) => {
-      try {
-        const res = await axiosConfig.patch(`/api/category/${id}`, {
-          name,
-        });
-
-        toast.success(res.data?.message);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["categories", { page, status, name }]);
-    },
-  });
-
-  const addNewCategoryMutation = useMutation({
-    mutationFn: async (name) => {
-      try {
-        console.log(name);
-        const res = await axiosConfig.post("/api/category", {
-          name: name,
-        });
-        toast.success(res.data?.message);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries(["categories", { page, status, name }]);
-    },
-  });
+  useEffect(() => {
+    setPage(1);
+  }, [status, name]);
 
   return (
-    <div className="bg-white rounded-lg p-8">
-      <h1 className="text-xl font-medium bg-gradient-to-r from-blue-400 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text mb-20">
-        All Categories
-      </h1>
+    <div className="p-8 bg-white rounded-md shadow-md">
+      <h1 className="mb-10 text-2xl font-bold text-gray-800 border-b-2 border-[#e7423e] pb-3 inline-block">Tất cả danh mục</h1>
 
-      <div className="flex justify-between gap-5 items-center mb-20">
-        <button
-          onClick={() => setOpenAdd(true)}
-          className="hover:bg-teal-950 bg-teal-600 text-white py-2 px-4 rounded flex gap-2 items-center "
-        >
-          <span>Add</span> <GoPlus className="size-5 font-semibold" />
-        </button>
-        {openAdd && (
-          <div className="fixed inset-0 bg-black bg-opacity-10">
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[400px] bg-white rounded-lg p-5">
-              <label
-                htmlFor="name"
-                className="block mb-4 text-lg text-slate-700 font-medium"
-              >
-                Add new category
-              </label>
-              <input
-                value={newCategory}
-                onChange={(e) => setNewCategory(e.target.value)}
-                type="text"
-                className="w-full px-4 py-2 mb-5 text-sm border rounded-md outline-none border-slate-400 text-slate-700 focus:border-teal-500"
-              />
-              <div className="flex">
-                <button
-                  onClick={() => {
-                    addNewCategoryMutation.mutate(newCategory);
-                    setOpenAdd(false);
-                    setNewCategory("");
-                  }}
-                  className="block px-8 py-2 mx-auto bg-slate-950 text-primaryText hover:bg-opacity-80"
-                >
-                  Save
-                </button>
-                <button
-                  onClick={() => setOpenAdd(false)}
-                  className="block px-8 py-2 mx-auto bg-red-700 text-primaryText hover:bg-opacity-80"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-        <div className="flex items-center gap-5">
-          <div className="flex items-center gap-4  justify-center">
-            <input
-              placeholder="search"
-              type="text"
-              value={tempName}
-              onChange={(e) => setTempName(e.target.value)}
-              className="border border-slate-200 focus:border-teal-500  outline-none bg-white rounded-xl px-6 py-2 min-w-[300px] text-sm font-light text-slate-800"
-            />
-            <RiSearchLine
-              onClick={() => setName(tempName)}
-              className="cursor-pointer hover:scale-125 hover:text-teal-800 size-5 text-slate-700"
-            />
-          </div>
-
-          <select
-            name="active"
-            id="active"
-            value={status || ""}
-            onChange={(e) => setStatus(e.target.value)}
-            className="bg-slate-100 outline-none py-2 px-4 rounded-xl cursor-pointer focus:border focus:border-teal-500 text-sm text-gray-600 "
-          >
-            <option value="">All status</option>
-            <option value={1}>Acitve</option>
-            <option value={0}>Unactive</option>
-          </select>
-
-          <button
-            className="bg-slate-950 px-4 py-2  text-primaryText rounded-md hover:bg-opacity-80"
-            onClick={() => {
-              setStatus(null);
-              setTempName("");
-              setName(null);
-            }}
-          >
-            Reset
-          </button>
+      <div className="flex items-center justify-center gap-4 mb-10">
+        <div className="relative w-full max-w-md">
+          <input
+            placeholder="Tìm kiếm theo tên danh mục..."
+            type="text"
+            value={tempName}
+            onChange={(e) => setTempName(e.target.value)}
+            className="border border-gray-200 focus:border-[#e7423e] outline-none bg-white rounded-md px-6 py-3 w-full text-sm font-light text-gray-800 shadow-sm transition-all"
+          />
+          <RiSearchLine
+            onClick={() => setName(tempName)}
+            className="cursor-pointer hover:scale-125 hover:text-[#e7423e] size-5 text-gray-500 absolute right-4 top-1/2 transform -translate-y-1/2 transition-all"
+          />
         </div>
       </div>
 
-      <div className="flex flex-col gap-5">
-        {categories &&
-          categories.map((a) => (
-            <div className="flex gap-10 justify-between" key={a.id}>
-              <p className="">{a.id}</p>
+      <div className="flex flex-wrap gap-4 p-4 mb-10 rounded-md shadow-sm bg-gray-50">
+        <select
+          name="status"
+          id="status"
+          value={status || ""}
+          onChange={(e) => setStatus(e.target.value)}
+          className="outline-none py-2 px-4 rounded-md cursor-pointer border border-gray-200 focus:border-[#e7423e] text-sm text-gray-800 bg-white shadow-sm transition-all hover:shadow"
+        >
+          <option value="">Tất cả trạng thái</option>
+          <option value={1}>Kích hoạt</option>
+          <option value={0}>Không kích hoạt</option>
+        </select>
 
-              <div className="flex items-center gap-3 flex-1 justify-center">
-                <h3 className="text-lg font-medium text-slate-800">{a.name}</h3>
-                <FaPencil
-                  className="cursor-pointer text-slate-700 hover:text-teal-800 hover:scale-125"
-                  onClick={() => {
-                    setOpenRename(a.id);
-                    setNewName(a.name);
-                  }}
-                />
-                {openRename === a.id && (
-                  <div className="fixed inset-0 bg-black bg-opacity-10">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[400px] bg-white rounded-lg p-5">
-                      <label
-                        htmlFor="name"
-                        className="block mb-4 text-sm font-medium"
-                      >
-                        name
-                      </label>
-                      <input
-                        value={newName}
-                        onChange={(e) => setNewName(e.target.value)}
-                        type="text"
-                        className="w-full px-4 py-2 mb-5 text-sm border rounded-md outline-none border-slate-400 text-slate-700 focus:border-teal-500"
-                      />
-                      <div className="flex">
-                        <button
-                          onClick={() => {
-                            changeNameMutation.mutate({
-                              id: a.id,
-                              name: newName,
-                            });
-                            setOpenRename(false);
-                            setNewName("");
-                          }}
-                          className="block px-8 py-2 mx-auto bg-slate-950 text-primaryText hover:bg-opacity-80"
-                        >
-                          Save
-                        </button>
-                        <button
-                          onClick={() => setOpenRename(false)}
-                          className="block px-8 py-2 mx-auto bg-red-700 text-primaryText hover:bg-opacity-80"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-              <p className="flex-1 text-center">
-                <span className="text-gray-600 mr-2"> Total posts: </span>
-                {a.total}
-              </p>
-
-              <select
-                name="active"
-                id="active"
-                value={a.isActive}
-                onChange={(e) =>
-                  changeActiveMutation.mutate({
-                    id: a.id,
-                    isActive: e.target.value,
-                  })
-                }
-                className="h-10 bg-slate-100 outline-none py-2 px-4 rounded-xl cursor-pointer focus:border focus:border-teal-500 text-sm text-gray-600 "
-              >
-                <option value={1}>Acitve</option>
-                <option value={0}>Unactive</option>
-              </select>
-
-              <button
-                className="h-10 bg-red-700 px-4 rounded-md text-white hover:bg-red-900"
-                onClick={() => setOpenDelete(a?.id)}
-              >
-                Delete
-              </button>
-              <DeleteModal
-                title="Are you sure you want to delete this user"
-                open={openDelete == a?.id}
-                setOpen={setOpenDelete}
-                onClick={() => deleteMutation.mutate(a?.id)}
-              />
-            </div>
-          ))}
+        <button
+          className="px-6 py-2 text-sm font-medium text-gray-700 transition-all bg-gray-100 border border-gray-200 rounded-md shadow-sm hover:bg-gray-200"
+          onClick={() => {
+            setStatus(null);
+            setTempName("");
+            setName(null);
+            setPage(1);
+          }}
+        >
+          Đặt lại
+        </button>
       </div>
-      <Pagination page={page} setPage={setPage} total={total} />
+
+      <div className="flex flex-col items-start gap-8">
+        {categories?.length > 0 ? (
+          categories.map((category) => (
+            <div
+              key={category.id}
+              className="flex flex-col w-full gap-5 p-4 transition-all bg-white border border-gray-100 rounded-md shadow-sm hover:shadow-md"
+            >
+              <div className="flex flex-col flex-1 gap-3">
+                <h2 className="text-gray-800 text-lg font-medium mb-2 hover:text-[#e7423e] transition-colors">
+                  {category.name}
+                </h2>
+                <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <span>Tổng số bài viết: {category.total}</span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2 md:flex-col md:items-end">
+                <select
+                  name="isActive"
+                  id="isActive"
+                  value={category.isActive}
+                  onChange={(e) =>
+                    changeActiveMutation.mutate({
+                      id: category.id,
+                      isActive: e.target.value,
+                    })
+                  }
+                  className={`px-4 py-2 rounded-md outline-none border cursor-pointer text-sm transition-all ${statusColors[category.isActive ? 'active' : 'inactive']}`}
+                >
+                  <option value={1} className="text-gray-800 bg-white">
+                    Kích hoạt
+                  </option>
+                  <option value={0} className="text-gray-800 bg-white">
+                    Không kích hoạt
+                  </option>
+                </select>
+
+                <button
+                  className="px-4 py-2 bg-[#e7423e] rounded-md text-white hover:bg-opacity-90 transition-all text-sm font-medium shadow-sm hover:shadow"
+                  onClick={() => setOpenDelete(category?.id)}
+                >
+                  Xóa
+                </button>
+
+                <DeleteModal
+                  setOpen={setOpenDelete}
+                  onClick={() => deleteMutation.mutate(category?.id)}
+                  open={openDelete == category?.id}
+                />
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="w-full py-10 text-center text-gray-500">
+            Không tìm thấy danh mục nào. Hãy thử điều chỉnh bộ lọc của bạn.
+          </div>
+        )}
+        <div className="w-full">
+          <Pagination page={page} setPage={setPage} total={total} />
+        </div>
+      </div>
     </div>
   );
 };

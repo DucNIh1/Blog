@@ -36,22 +36,22 @@ const Author = () => {
   }, [limit]);
 
   return (
-    <div className="w-full max-w-3xl mx-auto border p-5 my-20">
-      <div className="flex gap-5 items-center mb-10">
+    <div className="w-full max-w-3xl p-5 mx-auto my-20 border">
+      <div className="flex items-center gap-5 mb-10">
         <img
           src={author?.infor.img}
           alt=""
-          className="w-20 h-20 rounded-full object-cover"
+          className="object-cover w-20 h-20 rounded-full"
         />
         <div className="flex flex-col gap-2">
-          <p className="text-slate-950 font-medium">{author?.infor.username}</p>
-          <p className="font-light text-slate-900 text-sm">
+          <p className="font-medium text-slate-950">{author?.infor.username}</p>
+          <p className="text-sm font-light text-slate-900">
             {author?.infor.profession}
           </p>
         </div>
       </div>
       <p>
-        <i className="leading-7 text-slate-700 font-light">
+        <i className="font-light leading-7 text-slate-700">
           {author?.infor.bio}
         </i>
       </p>
@@ -60,7 +60,7 @@ const Author = () => {
         <a href={author?.infor.fb_url} target="_blank">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-7 w-7 text-blue-500"
+            className="text-blue-500 cursor-pointer h-7 w-7"
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -70,7 +70,7 @@ const Author = () => {
         <a href={author?.infor.github_url} target="_blank">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-7 w-7 text-slate-800"
+            className="cursor-pointer h-7 w-7 text-slate-800"
             fill="currentColor "
             viewBox="0 0 24 24"
           >
@@ -80,7 +80,7 @@ const Author = () => {
         <a href={author?.infor.ig_url} target="_blank">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-7 w-7 text-pink-600"
+            className="text-pink-600 cursor-pointer h-7 w-7"
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -91,15 +91,15 @@ const Author = () => {
       <div className="h-[1px] bg-slate-600 w-full my-10 bg-opacity-80"></div>
 
       <div className="">
-        <h1 className="text-xl font-medium text-slate-900 mb-5" ref={ref}>
-          Recent articles from the author
+        <h1 className="mb-5 text-xl font-medium text-slate-900" ref={ref}>
+          Các bài viết gần đây của tác giả
         </h1>
 
-        <div className="flex flex-col gap-8 w-full">
+        <div className="flex flex-col w-full gap-8">
           {author?.posts?.length > 0 &&
             author?.posts.map((post, index) => (
               <div
-                className="flex flex-col gap-5 lg:flex-row w-full"
+                className="flex flex-col w-full gap-5 lg:flex-row"
                 key={index}
               >
                 <img
@@ -112,7 +112,7 @@ const Author = () => {
                     {moment(post?.updated_at).format("MMM Do YY")}
                   </p>
 
-                  <h2 className="text-lg font-medium cursor-pointer text-slate-950 hover:text-teal-600">
+                  <h2 className="text-lg font-medium cursor-pointer text-slate-950 hover:text-[#e7423e] transition-all duration-300">
                     <Link to={`/post/${post?.id}`}>{post?.title}</Link>
                   </h2>
 
@@ -127,9 +127,9 @@ const Author = () => {
         </div>
         <button
           onClick={() => setLimit((pre) => pre + 4)}
-          className="bg-slate-950 px-6 py-2 text-primaryText mx-auto block my-10 hover:bg-opacity-70"
+          className="block px-6 py-2 mx-auto my-10 bg-slate-950 text-primaryText hover:bg-opacity-70"
         >
-          Load more
+          Tải thêm bài viết
         </button>
       </div>
     </div>

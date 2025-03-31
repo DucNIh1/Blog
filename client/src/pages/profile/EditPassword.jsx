@@ -26,37 +26,35 @@ const EditPassword = () => {
     <div>
       <div className="w-full mt-2 ">
         <div className="flex flex-col w-full gap-2 mb-5">
-          <label htmlFor="email" className=" text-slate-900 font-medium">
-            Old password
+          <label htmlFor="email" className="font-medium text-slate-900">
+            Mật khẩu cũ
           </label>
           <input
             type="password"
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
-            className="w-full px-4 py-3 text-sm text-gray-800 transition-all duration-100 ease-linear border rounded-xl outline-none  focus:border-teal-500 focus:ring-1 focus:ring-offset-1 focus:ring-teal-200"
-            placeholder="At least 8 characters"
+            className="w-full px-4 py-3 text-sm text-gray-800 transition-all duration-100 ease-linear border outline-none rounded-xl focus:border-[#e7423e]"
+            placeholder="ít nhất 8 kí tự"
           />
         </div>
         <div className="flex flex-col w-full gap-2 mb-10 ">
-          <label htmlFor="email" className="text-slate-900 font-medium">
-            Password
+          <label htmlFor="email" className="font-medium text-slate-900">
+            Mật khẩu mới
           </label>
           <input
             type="password"
             value={newPassword}
+            placeholder="ít nhất 8 kí tự"
             onChange={(e) => setNewPassword(e.target.value)}
-            className="w-full px-4 py-3 text-sm text-gray-800 transition-all duration-100 ease-linear border rounded-xl outline-none focus:border-teal-500 focus:ring-1 focus:ring-offset-1 focus:ring-teal-200 "
+            className="w-full px-4 py-3 text-sm text-gray-800 transition-all duration-100 ease-linear border outline-none rounded-xl focus:border-[#e7423e] "
           />
-          <span className="text-[#9e9ea7] text-sm font-light">
-            Minimum 8 characters
-          </span>
         </div>
 
         <button
           onClick={handleChangePassword}
           className="max-w-[200px] block ml-auto text-sm font-medium hover:bg-opacity-70 px-4 py-2 rounded-3xl bg-slate-950 text-primaryText"
         >
-          Change
+          Thay đổi
         </button>
       </div>
     </div>

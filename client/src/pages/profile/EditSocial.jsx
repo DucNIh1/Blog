@@ -51,12 +51,12 @@ const EditSocial = () => {
 
   return (
     <div>
-      <form className="flex gap-5 flex-col" onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
         {/* <!-- Facebook --> */}
-        <div className="flex gap-5 items-center">
+        <div className="flex items-center gap-5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-blue-400"
+            className="w-5 h-5 text-blue-400"
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -68,13 +68,13 @@ const EditSocial = () => {
             value={fb}
             onChange={(e) => setFb(e.target.value)}
             placeholder="facebook"
-            className="w-full outline-none rounded-lg border border-gray-200 px-6 py-2 text-sm text-slate-900 focus:border-teal-500 focus:ring-1 focus:ring-offset-1 focus:ring-teal-200"
+            className="w-full outline-none rounded-xl border border-gray-200 px-6 py-2 text-sm text-slate-900 focus:border-[#e7423e]"
           />
         </div>
-        <div className="flex gap-5 items-center">
+        <div className="flex items-center gap-5">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 "
+            className="w-5 h-5 "
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -86,15 +86,15 @@ const EditSocial = () => {
             value={github}
             onChange={(e) => setGithub(e.target.value)}
             placeholder="Github"
-            className="w-full outline-none rounded-lg border border-gray-200 px-6 py-2 text-sm text-slate-900 focus:border-teal-500 focus:ring-1 focus:ring-offset-1 focus:ring-teal-200"
+            className="w-full outline-none rounded-xl border border-gray-200 px-6 py-2 text-sm text-slate-900 focus:border-[#e7423e]"
           />
         </div>
 
-        <div className="flex gap-5 items-center">
+        <div className="flex items-center gap-5">
           {/* <!-- Instagram --> */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-pink-500"
+            className="w-5 h-5 text-pink-500"
             fill="currentColor"
             viewBox="0 0 24 24"
           >
@@ -106,14 +106,14 @@ const EditSocial = () => {
             onChange={(e) => setIg(e.target.value)}
             type="text"
             placeholder="Instagram"
-            className="w-full outline-none rounded-lg border border-gray-200 px-6 py-2 text-sm text-slate-900 focus:border-teal-500 focus:ring-1 focus:ring-offset-1 focus:ring-teal-200"
+            className="w-full outline-none rounded-xl border border-gray-200 px-6 py-2 text-sm text-slate-900 focus:border-[#e7423e]"
           />
         </div>
         <span className="text-[#9e9ea7] text-sm font-light">
-          Leave links to your social media pages
+          Để lại các liên kết đến các trang mạng xã hội của bạn
         </span>
-        <button className="mt-5 ml-auto text-sm font-medium hover:bg-opacity-70 px-4 py-2 rounded-3xl bg-slate-950 text-primaryText">
-          Update Social Profiles
+        <button className="px-4 py-2 mt-5 ml-auto text-sm font-medium hover:bg-opacity-70 rounded-3xl bg-slate-950 text-primaryText">
+          Cập nhật hồ sơ
         </button>
       </form>
     </div>

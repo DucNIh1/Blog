@@ -10,7 +10,6 @@ const Profile = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const { logout } = useContext(AuthContext);
   const { pathname } = useLocation();
-
   const navigate = useNavigate();
 
   const { data: me } = useQuery({
@@ -18,7 +17,6 @@ const Profile = () => {
     queryFn: async () => {
       try {
         const res = await axiosConfig.get("/api/users/get-me");
-        console.log(res);
         return res.data?.user;
       } catch (error) {
         console.log(error);
@@ -45,59 +43,57 @@ const Profile = () => {
         <img
           src={me?.img}
           alt=""
-          className="w-12 h-12 rounded-full object-cover"
+          className="object-cover w-12 h-12 rounded-full"
         />
         <div className="">
           <div className="flex mb-1">
-            <h3 className="text-slate-950 text-lg ">{me?.username}</h3>
+            <h3 className="text-lg text-slate-950 ">{me?.username}</h3>
             <span className="text-[#dbdbde] mx-1">/</span>
-            <h3 className="text-slate-950 text-lg first-letter:uppercase">
-              {(pathname && pathname?.split("/")[2]?.split("-")?.join(" ")) ||
-                "Edit Profile"}
+            <h3 className="text-lg text-slate-950 first-letter:uppercase">
+              {pathname === '/account/social-profiles' && <h1>Liên kết mạng xã hội,</h1>}
+              {pathname === '/account/edit-profile' && <h1>Cập nhật tiểu sử</h1>}
+              {pathname === '/account/password' && <h1>Mật khẩu</h1>}
             </h3>
           </div>
           <h2 className="text-sm text-[#6e6d7a]">
-            Set up your Gemme presence{" "}
+            Thiết lập lại thông tin hồ sơ của bạn
           </h2>
         </div>
       </div>
-      <div className="flex gap-20 flex-col lg:flex-row">
-        <div className="lg:w-1/4 w-full">
-          <ul className="flex lg:flex-col flex-row w-full  lg:gap-2  justify-between flex-wrap gap-5">
+      <div className="flex flex-col gap-20 lg:flex-row">
+        <div className="w-full lg:w-1/4">
+          <ul className="flex flex-row flex-wrap justify-between w-full gap-5 lg:flex-col lg:gap-2">
             <li>
               <NavLink
                 to={"edit-profile"}
                 className={({ isActive }) =>
-                  `text-[15px] text-slate-600 font-light hover:text-slate-950 ${
-                    isActive ? "text-slate-950 font-medium" : ""
+                  `text-[15px] text-slate-600 font-light hover:text-slate-950 ${isActive ? "text-slate-950 font-medium" : ""
                   }`
                 }
               >
-                Edit Profile
+                Cập nhật tiểu sử
               </NavLink>
             </li>
             <li>
               <NavLink
                 to={"password"}
                 className={({ isActive }) =>
-                  `text-[15px] text-slate-600 font-light hover:text-slate-950 ${
-                    isActive ? "text-slate-950 font-medium" : ""
+                  `text-[15px] text-slate-600 font-light hover:text-slate-950 ${isActive ? "text-slate-950 font-medium" : ""
                   } `
                 }
               >
-                Password
+                Mật khẩu
               </NavLink>
             </li>
             <li>
               <NavLink
                 to={"social-profiles"}
                 className={({ isActive }) =>
-                  `text-[15px] text-slate-600 font-light hover:text-slate-950 ${
-                    isActive ? "text-slate-950 font-medium" : ""
+                  `text-[15px] text-slate-600 font-light hover:text-slate-950 ${isActive ? "text-slate-950 font-medium" : ""
                   }`
                 }
               >
-                Social Profiles
+                Liên kết mạng xã hội
               </NavLink>
             </li>
 
@@ -107,9 +103,9 @@ const Profile = () => {
             <li>
               <button
                 onClick={() => setOpenDelete(true)}
-                className="text-red-500 font-light hover:text-red-800"
+                className="font-light text-[#e7423e] hover:text-[#ac3533]"
               >
-                Delete Account
+                Xóa tài khoản
               </button>
 
               <DeleteModal
@@ -121,7 +117,7 @@ const Profile = () => {
             </li>
           </ul>
         </div>
-        <div className="flex-1  px-5 pb-5">
+        <div className="flex-1 px-5 pb-5">
           <Outlet />
         </div>
       </div>

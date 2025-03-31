@@ -47,7 +47,7 @@ const Layout = () => {
   return (
     <div className="">
       <NavBar openProfile={openProfile} setOpenProfile={setOpenProfile} />
-      <div className="container px-5 mx-auto md:px-10 lg:px-20 ">
+      <div className="container px-5 mx-auto md:px-10 lg:px-20">
         <Outlet />
       </div>
       <Footer />

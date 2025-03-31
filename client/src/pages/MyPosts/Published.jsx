@@ -68,7 +68,7 @@ const Published = () => {
                 <p className="text-sm text-slate-600">
                   {moment(post?.updated_at).format("DD/MM/YYYY")}
                 </p>
-                <h2 className="text-lg font-medium cursor-pointer text-slate-950 hover:text-[#ad2a28] ">
+                <h2 className="text-lg font-medium cursor-pointer text-slate-950 hover:text-[#e7423e] ">
                   <Link to={`/post/${post?.id}`}>{post?.title}</Link>
                 </h2>
                 <div className="flex flex-row gap-5 lg:flex-col">

@@ -11,10 +11,8 @@ const EditProfile = () => {
   const [selectedImg, setSelectedImg] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
 
-  //  for country
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(null);
-  //
   const [username, setUsername] = useState(null);
   const [birth, setBirth] = useState(null);
   const [gender, setGender] = useState(null);
@@ -60,7 +58,7 @@ const EditProfile = () => {
     const file = e.target.files[0];
     if (file) {
       setSelectedImg(file);
-      setPreviewImage(URL.createObjectURL(file)); // Tạo link tạm để preview ảnh
+      setPreviewImage(URL.createObjectURL(file));
     }
   };
 
@@ -70,7 +68,7 @@ const EditProfile = () => {
         const data = new FormData();
         data.append("image", selectedImg);
 
-        toast.info("Please wait a second...");
+        toast.info("Vui lòng chờ một chút...");
 
         const res = await axiosConfig.post(`/api/upload`, data, {
           headers: {
@@ -83,9 +81,9 @@ const EditProfile = () => {
         });
         setUser({ ...user, img: res.data?.data?.secure_url });
         setSelectedImg(null);
-        toast.success("Update avatar successfully");
+        toast.success("Cập nhật ảnh đại diện thành công");
       } catch (error) {
-        toast.error("Error updating avatar");
+        toast.error("Lỗi khi cập nhật ảnh đại diện");
         console.log(error);
       }
     },
@@ -120,10 +118,10 @@ const EditProfile = () => {
     setUsername(me?.username || null);
     const birthDate = me?.birth_date
       ? new Date(
-          new Date(me.birth_date).toLocaleString("en-US", {
-            timeZone: "Asia/Ho_Chi_Minh",
-          })
-        )
+        new Date(me.birth_date).toLocaleString("en-US", {
+          timeZone: "Asia/Ho_Chi_Minh",
+        })
+      )
       : null;
     setBirth(birthDate ? birthDate.toISOString().split("T")[0] : null);
 
@@ -135,7 +133,7 @@ const EditProfile = () => {
 
   return (
     <div>
-      <div className="flex gap-5 items-center mb-5 flex-wrap">
+      <div className="flex flex-wrap items-center gap-5 mb-5">
         <input
           type="file"
           name="image"
@@ -146,19 +144,19 @@ const EditProfile = () => {
         <img
           src={previewImage || me?.img}
           alt=""
-          className="w-20 h-20 object-cover rounded-full"
+          className="object-cover w-20 h-20 rounded-full"
         />
         <label
           htmlFor="image"
-          className=" border border-slate-300  rounded-3xl cursor-pointer py-2 px-5 text-sm flex items-center font-medium hover:border-teal-500 transition-all duration-100 ease-in-out"
+          className="flex items-center px-5 py-2 text-sm font-medium transition-all duration-100 ease-in-out border cursor-pointer border-slate-300 rounded-3xl hover:border-[#e7423e]"
         >
-          Upload new picture
+          Tải lên ảnh mới
         </label>
         <button
           onClick={updateAvatarMutation.mutate}
           className="bg-[#f8f7f4] text-sm font-medium rounded-2xl px-5 text-slate-900 py-2 hover:bg-slate-900 hover:text-primaryText"
         >
-          Save
+          Lưu
         </button>
       </div>
       <form
@@ -168,81 +166,80 @@ const EditProfile = () => {
           updateProfileMutation.mutate();
         }}
       >
-        {/* Name */}
+        {/* Tên */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="username">Name</label>
+          <label htmlFor="username">Tên</label>
           <input
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             id="username"
             type="text"
-            className="w-full outline-none rounded-lg border border-gray-200 px-6 py-2 text-sm text-slate-900 focus:border-teal-500 focus:ring-1 focus:ring-offset-1 focus:ring-teal-200"
+            className="w-full px-6 py-2 text-sm border border-gray-200 rounded-lg outline-none text-slate-900 focus:border-[#e7423e]  "
           />
         </div>
 
-        {/* Birth day */}
+        {/* Ngày sinh */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="birth">Birth date</label>
+          <label htmlFor="birth">Ngày sinh</label>
           <input
             id="birth"
             type="date"
             value={birth}
             onChange={(e) => setBirth(e.target.value)}
-            className="w-full outline-none rounded-lg border border-gray-200 px-6 py-2 text-sm text-slate-900 focus:border-teal-500 focus:ring-1 focus:ring-offset-1 focus:ring-teal-200"
+            className="w-full px-6 py-2 text-sm border border-gray-200 rounded-lg outline-none text-slate-900 focus:border-[#e7423e]  "
           />
         </div>
 
-        {/* Gender */}
+        {/* Giới tính */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="gender">Gender</label>
+          <label htmlFor="gender">Giới tính</label>
           <select
             value={gender}
             onChange={(e) => setGender(e.target.value)}
             name="gender"
             id="gender"
-            className="outline-none border border-gray-200 rounded-lg px-4 py-2 cursor-pointer focus:border-teal-500 focus:ring-1 focus:ring-offset-1 focus:ring-teal-200 text-sm text-slate-900"
+            className="px-4 py-2 text-sm border border-gray-200 rounded-lg outline-none cursor-pointer focus:border-[#e7423e]   text-slate-900"
           >
-            <option value="">Select gender</option>
-
-            <option value="male">Male</option>
-            <option value="female">Female</option>
+            <option value="">Chọn giới tính</option>
+            <option value="male">Nam</option>
+            <option value="female">Nữ</option>
           </select>
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="profession">Profession</label>
+          <label htmlFor="profession">Nghề nghiệp</label>
           <input
             value={profession}
             onChange={(e) => setProfession(e.target.value)}
             id="profession"
             type="text"
-            className="w-full outline-none rounded-lg border border-gray-200 px-6 py-2 text-sm text-slate-900 focus:border-teal-500 focus:ring-1 focus:ring-offset-1 focus:ring-teal-200"
+            className="w-full px-6 py-2 text-sm border border-gray-200 rounded-lg outline-none text-slate-900 focus:border-[#e7423e]  "
           />
         </div>
-        {/* Country */}
+        {/* Quốc gia */}
         <div className="flex flex-col gap-2">
-          <label htmlFor="country">Country</label>
+          <label htmlFor="country">Quốc gia</label>
           <div className="relative">
             <div
-              className="border border-gray-200 rounded-lg px-4 py-2 cursor-pointer text-sm text-slate-900 flex items-center justify-between"
+              className="flex items-center justify-between px-4 py-2 text-sm border border-gray-200 rounded-lg cursor-pointer text-slate-900"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-              <div className="flex gap-2 items-center">
+              <div className="flex items-center gap-2">
                 {selectedCountry?.flag && (
                   <img
                     src={selectedCountry?.flag}
                     alt=""
-                    className="w-5 h-5 rounded-full object-cover"
+                    className="object-cover w-5 h-5 rounded-full"
                   />
                 )}
                 <span>
                   {me?.country
                     ? me?.country
-                    : selectedCountry?.name || "Select a country"}
+                    : selectedCountry?.name || "Chọn một quốc gia"}
                 </span>
               </div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
+                className="w-4 h-4"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -257,7 +254,7 @@ const EditProfile = () => {
             </div>
 
             {isDropdownOpen && (
-              <ul className="absolute mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-40 overflow-y-auto z-10">
+              <ul className="absolute z-10 mt-1 overflow-y-auto bg-white border border-gray-200 rounded-lg shadow-lg max-h-40">
                 {countries?.data.map((c) => (
                   <li
                     key={c.name}
@@ -265,12 +262,12 @@ const EditProfile = () => {
                       setSelectedCountry(c);
                       setIsDropdownOpen(false);
                     }}
-                    className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100"
                   >
                     <img
                       src={c.flag}
                       alt={c.name}
-                      className="w-6 h-6 rounded-full object-cover mr-2"
+                      className="object-cover w-6 h-6 mr-2 rounded-full"
                     />
                     <span>{c.name}</span>
                   </li>
@@ -281,18 +278,18 @@ const EditProfile = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label htmlFor="bio">Bio</label>
+          <label htmlFor="bio">Tiểu sử</label>
           <textarea
             name="bio"
             value={bio}
             onChange={(e) => setBio(e.target.value)}
             id="bio"
-            className="border border-gray-200 rounded-lg min-h-32 outline-none focus:border-teal-500 focus:ring-1 focus:ring-offset-1 focus:ring-teal-200 p-5 text-sm text-slate-900"
+            className="p-5 text-sm border border-gray-200 rounded-lg outline-none min-h-32 focus:border-[#e7423e]   text-slate-900"
           ></textarea>
         </div>
 
         <button className="max-w-[200px] ml-auto text-sm font-medium hover:bg-opacity-70 px-4 py-2 rounded-3xl bg-slate-950 text-primaryText">
-          Save Profile
+          Lưu hồ sơ
         </button>
       </form>
     </div>

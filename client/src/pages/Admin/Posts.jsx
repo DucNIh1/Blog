@@ -8,10 +8,11 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { RiSearchLine } from "react-icons/ri";
 
+// Màu sắc trạng thái được cập nhật để phù hợp với chủ đề mới
 const statusColors = {
-  draft: "border-slate-400 text-slate-900",
-  published: "border-green-800 text-green-900",
-  pending: "border-yellow-600 text-yellow-900",
+  draft: "border-gray-400 text-gray-700 bg-gray-50",
+  published: "border-green-600 text-green-700 bg-green-50",
+  pending: "border-yellow-500 text-yellow-700 bg-yellow-50",
 };
 
 const Posts = () => {
@@ -53,10 +54,10 @@ const Posts = () => {
     mutationFn: async (id) => {
       try {
         const res = await axiosConfig.delete(`/api/posts/${id}`);
-        toast.success(res.data?.message || "Deleted successfully");
+        toast.success(res.data?.message || "Xóa thành công");
         setOpenDelete(false);
       } catch (error) {
-        toast.error("Delete failed");
+        toast.error("Xóa thất bại");
         console.log(error);
       }
     },
@@ -88,7 +89,6 @@ const Posts = () => {
         const res = await axiosConfig.get("/api/category");
         return res.data?.categories;
       } catch (error) {
-        console.log(error);
       }
     },
   });
@@ -101,11 +101,9 @@ const Posts = () => {
           isFeatured,
           cat,
         });
-        console.log(res);
         toast.success(res.data?.message);
       } catch (error) {
-        toast.error(error.response.data?.message || "Something went wrong!");
-        console.log(error);
+        toast.error(error.response.data?.message || "Đã xảy ra lỗi!");
       }
     },
     onSuccess: () => {
@@ -118,34 +116,37 @@ const Posts = () => {
   }, [status, title, sort, category]);
 
   return (
-    <div className="bg-white rounded-lg p-8">
-      <h1 className="mb-10">All Posts</h1>
-      <div className="flex items-center gap-4 mb-10 justify-center">
-        <input
-          placeholder="search"
-          type="text"
-          value={temptitle}
-          onChange={(e) => setTempTitle(e.target.value)}
-          className="border border-slate-200 focus:border-teal-500  outline-none bg-white rounded-xl px-6 py-2 min-w-[300px] text-sm font-light text-slate-800"
-        />
-        <RiSearchLine
-          onClick={() => setTitle(temptitle)}
-          className="cursor-pointer hover:scale-125 hover:text-teal-800 size-5 text-slate-700"
-        />
+    <div className="p-8 bg-white rounded-md shadow-md">
+      <h1 className="mb-10 text-2xl font-bold text-gray-800 border-b-2 border-[#e7423e] pb-3 inline-block">Tất cả bài viết</h1>
+
+      <div className="flex items-center justify-center gap-4 mb-10">
+        <div className="relative w-full max-w-md">
+          <input
+            placeholder="Tìm kiếm theo tiêu đề..."
+            type="text"
+            value={temptitle}
+            onChange={(e) => setTempTitle(e.target.value)}
+            className="border border-gray-200 focus:border-[#e7423e] outline-none bg-white rounded-md px-6 py-3 w-full text-sm font-light text-gray-800 shadow-sm transition-all"
+          />
+          <RiSearchLine
+            onClick={() => setTitle(temptitle)}
+            className="cursor-pointer hover:scale-125 hover:text-[#e7423e] size-5 text-gray-500 absolute right-4 top-1/2 transform -translate-y-1/2 transition-all"
+          />
+        </div>
       </div>
-      <div className="flex gap-10 mb-20">
+
+      <div className="flex flex-wrap gap-4 p-4 mb-10 rounded-md shadow-sm bg-gray-50">
         <select
           name="status"
           id="status"
           value={status || ""}
           onChange={(e) => setStatus(e.target.value)}
-          className="outline-none py-2 px-4 rounded-xl cursor-pointer focus:border focus:border-teal-500 text-sm text-gray-800 "
+          className="outline-none py-2 px-4 rounded-md cursor-pointer border border-gray-200 focus:border-[#e7423e] text-sm text-gray-800 bg-white shadow-sm transition-all hover:shadow"
         >
-          <option value="">All status</option>
-
-          <option value="draft">Draft</option>
-          <option value="pending">Pending</option>
-          <option value="published">Published</option>
+          <option value="">Tất cả trạng thái</option>
+          <option value="draft">Bản nháp</option>
+          <option value="pending">Đang chờ</option>
+          <option value="published">Đã xuất bản</option>
         </select>
 
         <select
@@ -153,10 +154,9 @@ const Posts = () => {
           id="category"
           value={category || ""}
           onChange={(e) => setCategory(e.target.value)}
-          className="outline-none py-2 px-4 rounded-xl cursor-pointer focus:border focus:border-teal-500 text-sm text-gray-800 "
+          className="outline-none py-2 px-4 rounded-md cursor-pointer border border-gray-200 focus:border-[#e7423e] text-sm text-gray-800 bg-white shadow-sm transition-all hover:shadow"
         >
-          <option value="">All category</option>
-
+          <option value="">Tất cả danh mục</option>
           {categories &&
             categories.map((cat) => (
               <option value={cat.id} key={cat.id}>
@@ -170,15 +170,15 @@ const Posts = () => {
           id="sort"
           value={sort || ""}
           onChange={(e) => setSort(e.target.value)}
-          className="outline-none py-2 px-4 rounded-xl cursor-pointer focus:border focus:border-teal-500 text-sm text-gray-800 "
+          className="outline-none py-2 px-4 rounded-md cursor-pointer border border-gray-200 focus:border-[#e7423e] text-sm text-gray-800 bg-white shadow-sm transition-all hover:shadow"
         >
-          <option value="">Sort: default</option>
-          <option value="asc">Ascending</option>
-          <option value="des">Descending</option>
+          <option value="">Sắp xếp: mặc định</option>
+          <option value="asc">Tăng dần</option>
+          <option value="des">Giảm dần</option>
         </select>
 
         <button
-          className="bg-slate-950 text-primaryText px-4 rounded-xl hover:bg-opacity-80"
+          className="px-6 py-2 text-sm font-medium text-gray-700 transition-all bg-gray-100 border border-gray-200 rounded-md shadow-sm hover:bg-gray-200"
           onClick={() => {
             setCategory(null);
             setSort(null);
@@ -188,98 +188,115 @@ const Posts = () => {
             setPage(1);
           }}
         >
-          Reset
+          Đặt lại
         </button>
       </div>
 
-      <div className="flex flex-col gap-10 items-start">
-        {posts?.length > 0 &&
+      <div className="flex flex-col items-start gap-8">
+        {posts?.length > 0 ? (
           posts.map((post) => (
-            <div key={post.id} className="flex gap-5 w-full">
-              <img
-                src={post?.img}
-                alt=""
-                className="w-[280px] object-cover h-48"
-              />
-              <div className="flex flex-col gap-3 flex-1">
-                <h2 className="text-gray-800 tex-lg font-medium mb-2 max-w-96 hover:text-teal-700">
-                  <Link to={`/post/${post.id}`}> {post?.title}</Link>
-                </h2>
-                <p className="text-sm font-light text-gray-700">
-                  {moment(post?.created_at).format("MMM Do YY")}
-                </p>
-                <div className="mb-5">
-                  <p className="bg-teal-900 inline-block px-4 py-1 text-primaryText text-sm font-light rounded-xl">
-                    {post?.category_name}
-                  </p>
-                </div>
-                <p className="text-sm  text-slate-600">
-                  Write by: {post?.username}
-                </p>
+            <div
+              key={post.id}
+              className="flex flex-col w-full gap-5 p-4 transition-all bg-white border border-gray-100 rounded-md shadow-sm md:flex-row hover:shadow-md"
+            >
+              <div className="md:w-[280px] overflow-hidden rounded-md">
+                <img
+                  src={post?.img}
+                  alt=""
+                  className="object-cover w-full h-48 transition-transform duration-300 hover:scale-105"
+                />
               </div>
 
-              <select
-                name="isFeatured"
-                id="isFeatured"
-                value={post?.isFeatured}
-                onChange={(e) =>
-                  changePostFeatured.mutate({
-                    id: post.id,
-                    isFeatured: e.target.value,
-                    cat: post.cat_id,
-                  })
-                }
-                className={`h-10 px-4 py-1 rounded-xl outline-none border cursor-pointer  ${
-                  post.isFeatured
-                    ? "border-teal-500 text-teal-900"
-                    : "border-blue-500 text-blue-900"
-                } `}
-              >
-                <option value={1} className="bg-white text-slate-950 ">
-                  Featured
-                </option>
-                <option value={0} className="bg-white text-slate-950">
-                  Normal
-                </option>
-              </select>
-              <select
-                name="status"
-                id="status"
-                value={post?.status}
-                onChange={(e) =>
-                  changePostStatusMutation.mutate({
-                    id: post.id,
-                    status: e.target.value,
-                  })
-                }
-                className={`h-10 px-4 py-1 rounded-xl outline-none border cursor-pointer  ${
-                  statusColors[post?.status]
-                }`}
-              >
-                <option value="draft" className="bg-white text-slate-950 ">
-                  Draft
-                </option>
-                <option value="pending" className="bg-white text-slate-950">
-                  Pending
-                </option>
-                <option value="published" className="bg-white text-slate-950">
-                  Published
-                </option>
-              </select>
-              <button
-                className="h-10 bg-red-700 px-4 rounded-xl text-white hover:bg-red-900"
-                onClick={() => setOpenDelete(post?.id)}
-              >
-                Delete
-              </button>
-              <DeleteModal
-                setOpen={setOpenDelete}
-                onClick={() => deleteMutation.mutate(post?.id)}
-                open={openDelete == post?.id}
-              />
+              <div className="flex flex-col flex-1 gap-3">
+                <h2 className="text-gray-800 text-lg font-medium mb-2 hover:text-[#e7423e] transition-colors">
+                  <Link to={`/post/${post.id}`}>{post?.title}</Link>
+                </h2>
+
+                <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <span>{moment(post?.created_at).format("DD/MM/YYYY")}</span>
+                  <span className="text-xs">•</span>
+                  <span>Tác giả: {post?.username}</span>
+                </div>
+
+                <div className="my-3">
+                  <span className="bg-[#e7423e] bg-opacity-10 inline-block px-4 py-1 text-[#e7423e] text-sm font-medium rounded-md border border-[#e7423e] border-opacity-20">
+                    {post?.category_name}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex flex-wrap gap-2 md:flex-col md:items-end">
+                <select
+                  name="isFeatured"
+                  id="isFeatured"
+                  value={post?.isFeatured}
+                  onChange={(e) =>
+                    changePostFeatured.mutate({
+                      id: post.id,
+                      isFeatured: e.target.value,
+                      cat: post.cat_id,
+                    })
+                  }
+                  className={`px-4 py-2 rounded-md outline-none border cursor-pointer text-sm transition-all ${post.isFeatured
+                    ? "border-[#e7423e] text-[#e7423e] bg-red-50"
+                    : "border-blue-500 text-blue-600 bg-blue-50"
+                    }`}
+                >
+                  <option value={1} className="text-gray-800 bg-white">
+                    Nổi bật
+                  </option>
+                  <option value={0} className="text-gray-800 bg-white">
+                    Bình thường
+                  </option>
+                </select>
+
+                <select
+                  name="status"
+                  id="status"
+                  value={post?.status}
+                  onChange={(e) =>
+                    changePostStatusMutation.mutate({
+                      id: post.id,
+                      status: e.target.value,
+                    })
+                  }
+                  className={`px-4 py-2 rounded-md outline-none border cursor-pointer text-sm transition-all ${statusColors[post?.status]
+                    }`}
+                >
+                  <option value="draft" className="text-gray-800 bg-white">
+                    Bản nháp
+                  </option>
+                  <option value="pending" className="text-gray-800 bg-white">
+                    Đang chờ
+                  </option>
+                  <option value="published" className="text-gray-800 bg-white">
+                    Đã xuất bản
+                  </option>
+                </select>
+
+                <button
+                  className="px-4 py-2 bg-[#e7423e] rounded-md text-white hover:bg-opacity-90 transition-all text-sm font-medium shadow-sm hover:shadow"
+                  onClick={() => setOpenDelete(post?.id)}
+                >
+                  Xóa
+                </button>
+
+                <DeleteModal
+                  setOpen={setOpenDelete}
+                  onClick={() => deleteMutation.mutate(post?.id)}
+                  open={openDelete == post?.id}
+                />
+              </div>
             </div>
-          ))}
-        <Pagination page={page} setPage={setPage} total={total} />
+          ))
+        ) : (
+          <div className="w-full py-10 text-center text-gray-500">
+            Không tìm thấy bài viết nào. Hãy thử điều chỉnh bộ lọc của bạn.
+          </div>
+        )}
+        <div className="w-full">
+          <Pagination page={page} setPage={setPage} total={total} />
+        </div>
       </div>
     </div>
   );

@@ -8,11 +8,6 @@ import DeleteModal from "../../components/DeleteModal";
 import moment from "moment";
 import Pagination from "../../components/Pagination";
 
-const statusColors = {
-  draft: "bg-slate-400",
-  published: "bg-green-800",
-  pending: "bg-yellow-600",
-};
 
 const Draft = () => {
   const [page, setPage] = useState(1);
@@ -61,10 +56,9 @@ const Draft = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-5">
       {posts &&
         posts?.length > 0 &&
-        posts &&
         posts.map((post, index) => (
           <div
             className="flex flex-col justify-between gap-5 lg:flex-row"
@@ -80,7 +74,7 @@ const Draft = () => {
                 <p className="text-sm text-slate-600">
                   {moment(post?.updated_at).format("DD/MM/YYYY")}
                 </p>
-                <h2 className="text-lg font-medium cursor-pointer text-slate-950 hover:text-teal-600">
+                <h2 className="text-lg font-medium cursor-pointer text-slate-950 hover:text-[#e7423e] transition-all duration-300">
                   <Link to={`/post/${post?.id}`}>{post?.title}</Link>
                 </h2>
                 <div className="flex flex-row gap-5 lg:flex-col">
@@ -89,22 +83,15 @@ const Draft = () => {
                       {post?.cat_name}
                     </span>
                   </div>
-                  <div className="">
-                    <span
-                      className={`text-sm px-4 py-1 rounded-md text-primaryText  first-letter:uppercase ${statusColors[post?.status]
-                        }`}
-                    >
-                      {post?.status}
-                    </span>
-                  </div>
+
                   {post?.status == "draft" ? (
                     <div>
                       <button
                         onClick={() => handlePublish(post?.id)}
-                        className="flex items-center gap-2 px-4 py-1 bg-slate-950 text-primaryText"
+                        className="flex items-center gap-2 px-4 py-1 bg-slate-950 text-primaryText hover:bg-[#e7423e] transition-all duration-300"
                       >
                         <MdPublish />
-                        <span>Publish</span>
+                        <span className="font-semibold ">Xuất bản</span>
                       </button>
                     </div>
                   ) : null}

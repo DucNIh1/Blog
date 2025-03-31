@@ -106,8 +106,6 @@ export const getMyPosts = catchAsync(async (req, res, next) => {
 });
 
 export const getReleatedPosts = catchAsync(async (req, res, next) => {
-  const { cat, post_id } = req.params;
-  console.log(cat, post_id);
   const q = `SELECT p.id, p.img, p.title, p.content, p.teaser, p.created_at, p.user_id, u.username, u.email, u.img as user_img, c.name as category_name
      FROM posts as p
      INNER JOIN users as u ON p.user_id = u.id
@@ -136,7 +134,7 @@ export const setFeaturedPost = catchAsync(async (req, res, next) => {
 
 // Delete post by id
 export const deletePost = catchAsync(async (req, res, next) => {
-  const { userId, role } = req.user;
+  const { userId } = req.user;
 
   const id = req.params.id;
 
