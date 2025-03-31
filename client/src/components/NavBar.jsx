@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
-import { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/authContext";
 import { toast } from "react-toastify";
 import axiosConfig from "../axios/config";
 import { TfiWrite } from "react-icons/tfi";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { CiMenuFries } from "react-icons/ci";
@@ -16,15 +15,24 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { useQuery } from "@tanstack/react-query";
 import { FaChevronDown } from "react-icons/fa";
 
-const settings = {
-  dots: true,
-  infinite: true,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 4000,
-  pauseOnHover: false,
-};
+const NAV_LINKS = [
+  {
+    "title": "Báo cáo",
+    "to": "/"
+  },
+  {
+    "title": "Sự kiện",
+    "to": "/"
+  },
+  {
+    "title": "Nổi bật",
+    "to": "/"
+  },
+  {
+    "title": "GEMME TV",
+    "to": "/"
+  },
+]
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -77,169 +85,74 @@ const Navbar = () => {
   }, []);
 
   return (
-    <>
+    <React.Fragment>
       {isVisible && (
         <ScrollLink
           to="top"
           smooth={true}
           duration={500}
-          className="fixed top-3/4 right-5 z-[999] bg-black p-3 rounded-lg"
+          className="fixed bottom-5 right-5 z-[999] bg-black p-3 rounded-lg"
         >
           <IoMdArrowRoundUp className="cursor-pointer size-5 hover:opacity-85 z-[999] text-white" />
         </ScrollLink>
       )}
-      <header className="relative mb-20 overflow-hidden " id="top">
-        <div className="">
-          <Slider {...settings}>
-            <div className="">
-              <img
-                src="https://res.cloudinary.com/dnjz0meqo/image/upload/v1732016567/v5ylofuhca8taij1l0ix.jpg"
-                alt="A tall building with a dark sky background"
-                className="object-cover w-full h-[500px] bg-black"
-              />
-            </div>
-            <div className="">
-              <img
-                src="https://res.cloudinary.com/dnjz0meqo/image/upload/v1732016567/kfzqjxufnqxpmximp8fs.jpg"
-                alt="A tall building with a dark sky background"
-                className="object-cover w-full h-[500px]"
-              />
-            </div>
-          </Slider>
-        </div>
-        <div className="absolute inset-0 bg-black bg-opacity-35 bottom-[5px]"></div>
-        <div className="absolute top-0 left-0 flex flex-col justify-between w-full h-full p-8 bg-opacity-50 lg:px-20 ">
-          <div className="flex items-center justify-between text-white">
-            <div className="flex items-center justify-between w-full py-5 mb-16 text-gray-900">
-              <h1 className="text-2xl font-bold text-primaryText">
-                <Link to={"/"}>GEMME.</Link>
-              </h1>
-              <Nav categories={categories} />
-              <div className="items-center hidden gap-5 lg:flex">
-                {user ? (
-                  <>
-                    <PersonDropdown user={user} handleLogout={handleLogout} />
-                  </>
-                ) : (
-                  <Link to="/login" className="text-white hover:text-teal-500">
-                    Login
-                  </Link>
-                )}
-              </div>
-              <CiMenuFries
-                className="block font-medium cursor-pointer lg:hidden text-primaryText size-8"
-                onClick={() => setOpenMobile(true)}
-              />
-              <MobileMenu
-                to={"/my-posts"}
-                handleLogout={handleLogout}
-                user={user}
-                openMobile={openMobile}
-                setOpenMobile={setOpenMobile}
-                categories={categories}
-              />
-            </div>
+      <header className="flex items-center justify-between w-full px-20 text-gray-900 fixed top-0 left-0 z-50 bg-[#e44241]">
+          <h1 className="text-2xl font-bold text-primaryText">
+            <Link to={"/"}>GEMME.</Link>
+          </h1>
+          <Nav categories={categories} />
+          <div className="items-center hidden gap-5 lg:flex">
+            {user ? (
+              <>
+                <PersonDropdown user={user} handleLogout={handleLogout} />
+              </>
+            ) : (
+              <Link to="/login" className="text-white px-6 py-2 bg-black rounded-md hover:text-[#e44241] hover:bg-white transition-colors">
+                Login
+              </Link>
+            )}
           </div>
-
-          <div className="text-white">
-            <h2 className="text-4xl font-bold">
-              I Like to Keep Things Simple to Appreciate the Details
-            </h2>
-            <p className="mt-2">
-              Many years ago, I realized that my parents also run a video
-              production company.
-            </p>
-          </div>
-
-          <div className="flex items-center justify-between text-white">
-            <span>25 June 2023</span>
-          </div>
-        </div>
+          <CiMenuFries
+            className="block font-medium cursor-pointer lg:hidden text-primaryText size-8"
+            onClick={() => setOpenMobile(true)}
+          />
+          <MobileMenu
+            to={"/my-posts"}
+            handleLogout={handleLogout}
+            user={user}
+            openMobile={openMobile}
+            setOpenMobile={setOpenMobile}
+            categories={categories}
+          />
       </header>
-    </>
+    </React.Fragment>
   );
 };
 
 const Nav = ({ categories = [] }) => {
-  const [isOpenNav, setIsOpenNav] = useState(false);
   return (
-    <div className="items-center hidden gap-5 lg:flex">
-      <NavLink
-        className={({ isActive }) =>
-          `text-primaryText relative overflow-hidden
-          after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] 
-        after:bg-lightColor after:transition-all after:duration-500 
-          ${isActive ? "after:w-full after:bg-lightColor" : "after:w-0"}
-          hover:after:w-full hover:after:bg-lightColor hover:after:scale-100`
-        }
-        to={`/`}
-      >
-        HOME
-      </NavLink>
-      {categories.length > 0 &&
-        categories.map((cat, index) => {
-          if (index < 3)
-            return (
-              <NavLink
-                key={index}
-                className={({ isActive }) =>
-                  `text-primaryText relative overflow-hidden
-                        after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] 
-                        after:bg-lightColor after:transition-all after:duration-500 
-                        ${isActive
-                    ? "after:w-full after:bg-lightColor"
-                    : "after:w-0"
-                  }
-                        hover:after:w-full hover:after:bg-lightColor hover:after:scale-100`
-                }
-                to={`/blog/${cat.id}`}
-              >
-                {cat.name.toUpperCase()}
-              </NavLink>
-            );
-        })}
-
-      <div
-        className="relative inline-block ml-4"
-        onMouseLeave={() => setIsOpenNav(false)}
-      >
-        <button
-          onMouseOver={() => setIsOpenNav(true)}
-          className="flex items-center gap-2 text-white uppercase"
+    <div className="items-center hidden lg:flex">
+      <div className="group">
+        <NavLink
+          className={`text-primaryText overflow-hidden flex items-center gap-2 group-hover:bg-[#c2150f] hover:bg-[#c2150f] transition-colors p-5`}
+          to={`/`}
         >
-          <span>More categories</span>
-          <FaChevronDown />
-        </button>
-
-        {isOpenNav && (
-          <div className="absolute z-10 divide-y divide-gray-100 rounded-lg shadow bg-slate-950 w-44 bg-opacity-20">
-            <ul className="flex flex-col gap-3 p-4 py-4 text-sm ">
-              {categories &&
-                categories.map((cat, index) => {
-                  if (index >= 3)
-                    return (
-                      <NavLink
-                        key={cat.id}
-                        className={({ isActive }) =>
-                          `text-primaryText relative overflow-hidden
-                        after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] 
-                        after:bg-lightColor after:transition-all after:duration-500 
-                        ${isActive
-                            ? "after:w-full after:bg-lightColor"
-                            : "after:w-0"
-                          }
-                        hover:after:w-full hover:after:bg-lightColor hover:after:scale-100`
-                        }
-                        to={`/blog/${cat.id}`}
-                      >
-                        {cat.name.toUpperCase()}
-                      </NavLink>
-                    );
-                })}
-            </ul>
-          </div>
-        )}
+          <span>Danh mục</span>
+          <FaChevronDown size={10}/>
+        </NavLink>
+        <div className="absolute top-full left-0 h-auto bg-[#c2150f] text-primaryText w-full hidden group-hover:flex items-center justify-center gap-4">
+          {categories.map(cat => {
+            return <Link key={cat.id} to={`/blog/${cat.id}`} className="p-4 inline-flex">{cat.name}</Link>
+          })}
+        </div>
       </div>
+      {NAV_LINKS.map(link => {
+        return (
+          <NavLink key={link.title} to={link.to} className="text-primaryText hover:bg-[#c2150f] transition-colors p-5">
+            {link.title}
+          </NavLink>
+        )
+      })}
     </div>
   );
 };
@@ -385,7 +298,6 @@ const MobileMenu = ({
             onClick={() => setOpenMobile(false)}
           />
           <h2 className="mt-10 text-xl uppercase text-lightColor ">
-            {" "}
             Categories
           </h2>
           <div className="flex flex-col gap-5 mt-10">

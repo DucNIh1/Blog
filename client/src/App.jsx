@@ -2,7 +2,6 @@ import {
   createBrowserRouter,
   Outlet,
   RouterProvider,
-  useLocation,
 } from "react-router-dom";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
@@ -14,7 +13,7 @@ import Write from "./pages/Write";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Blog from "./pages/Blog";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import Admin from "./layout/Admin";
 import { AuthContext } from "./context/authContext";
 import Posts from "./pages/Admin/Posts";
@@ -35,19 +34,10 @@ import Author from "./pages/Author";
 const Layout = () => {
   const { openProfile, setOpenProfile } = useContext(AuthContext);
 
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo({
-      top: 250,
-      behavior: "smooth",
-    });
-  }, [pathname]);
-
   return (
-    <div className="">
+    <div className="relative">
       <NavBar openProfile={openProfile} setOpenProfile={setOpenProfile} />
-      <div className="container px-5 mx-auto md:px-10 lg:px-20">
+      <div className="container px-5 pt-[64px] mx-auto md:px-10 lg:px-20">
         <Outlet />
       </div>
       <Footer />
