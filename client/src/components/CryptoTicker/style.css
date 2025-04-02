@@ -1,0 +1,73 @@
+.crypto-ticker {
+  overflow: hidden;
+  width: 100%;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.ticker-container {
+  display: flex;
+  flex-direction: column;
+  animation: ticker 30s linear infinite;
+}
+
+.ticker-row {
+  display: flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.coin-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-right: 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.coin-item span {
+  margin-right: 10px;
+}
+
+.coin-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.coin-symbol {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.coin-price, .coin-change {
+  font-size: 14px;
+}
+
+.coin-change.up {
+  color: #43a843;
+}
+
+.coin-change.down {
+  color: #cf3b3b;
+}
+
+.coin-symbol.up {
+  color: #43a843;
+}
+
+.coin-symbol.down {
+  color: #cf3b3b;
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
