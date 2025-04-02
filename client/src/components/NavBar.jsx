@@ -26,11 +26,11 @@ const NAV_LINKS = [
   },
   {
     "title": "Nổi bật",
-    "to": "/"
+    "to": "/featured"
   },
   {
     "title": "GEMME TV",
-    "to": "/"
+    "to": "/tv"
   },
 ]
 

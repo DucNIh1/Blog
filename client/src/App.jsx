@@ -30,6 +30,8 @@ import Draft from "./pages/MyPosts/Draft";
 import Published from "./pages/MyPosts/Published";
 import MyPosts from "./pages/MyPosts/MyPosts";
 import Author from "./pages/Author";
+import Featured from "./pages/Featured";
+import CryptoTV from "./pages/CryptoTV";
 
 const Layout = () => {
   const { openProfile, setOpenProfile } = useContext(AuthContext);
@@ -118,6 +120,14 @@ const router = createBrowserRouter([
           },
         ],
       },
+      {
+        'path': 'featured',
+        'element': <Featured />
+      },
+      {
+        'path': 'tv',
+        'element': <CryptoTV />
+      }
     ],
   },
   {

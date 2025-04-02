@@ -1,0 +1,83 @@
+.App {
+    text-align: center;
+  }
+  
+  .section-title {
+    text-align: center;
+    color: #fff;
+    margin: 20px 0;
+    background-color: #D82C2A; /* Red background color */
+    padding: 20px;
+  }
+  
+  .section-title h2 {
+    margin: 0;
+    font-size: 36px;
+    font-weight: bold;
+  }
+  
+  .section-title p {
+    margin-top: 10px;
+    font-size: 18px;
+  }
+  
+  .slick-slider {
+    margin-top: 20px;
+  }
+  
+  .article-card {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    height: 400px;
+  }
+  
+  .article-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .article-content {
+    padding: 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+  }
+  
+  .article-content h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .article-content p {
+    font-size: 14px;
+    margin: 5px 0 0;
+  }
+  
+  .slick-slide {
+    padding: 10px;
+  }
+  
+  .slick-prev, .slick-next {
+    background-color: #D82C2A;
+    color: #fff;
+    border-radius: 50%;
+    z-index: 1;
+  }
+  
+  .slick-prev {
+    left: -20px;
+  }
+  
+  .slick-next {
+    right: -20px;
+  }
+  
