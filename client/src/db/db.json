@@ -1,0 +1,138 @@
+{
+    "videos": [
+        {
+          "title": "Bitcoin “Đổ Đèo” về 78K! Cơ hội cuối để gom hàng...",
+          "description": "Phân tích về 'Ngày Giải Phóng' và ảnh hưởng của nó đối với các nhà đầu tư tiền điện tử.",
+          "videoUrl": "https://www.youtube.com/embed/m6ochBtTAhs",
+          "thumbnailUrl": "https://img.youtube.com/vi/m6ochBtTAhs/0.jpg",
+          "channel": "Crypto World",
+          "date": "Hôm nay"
+        },
+        {
+          "title": "Bitcoin giảm sâu: Cơ hội để DCA hay là lời cảnh báo cuối cùng?",
+          "description": "Bitcoin đang giảm sâu, nhưng có phải đây là cơ hội DCA?",
+          "videoUrl": "https://www.youtube.com/embed/9emA9L8QyYk",
+          "thumbnailUrl": "https://img.youtube.com/vi/9emA9L8QyYk/0.jpg",
+          "channel": "Crypto World",
+          "date": "5 ngày trước"
+        },
+        {
+          "title": "One Crypto Trader's Strategy DESTROYED The Rest Of Ours!",
+          "description": "Phân tích về chiến lược giao dịch của một nhà đầu tư tiền điện tử và ảnh hưởng của nó đến thị trường.",
+          "videoUrl": "https://www.youtube.com/embed/x9Fh8hoN0UU",
+          "thumbnailUrl": "https://img.youtube.com/vi/x9Fh8hoN0UU/0.jpg",
+          "channel": "Crypto World",
+          "date": "1 tuần trước"
+        },
+        {
+          "title": "BTC Tariff Shock Incoming, Hyperliquid Madness & More",
+          "description": "Phân tích về những tác động của thuế BTC và các tin tức mới nhất trong thị trường tiền điện tử.",
+          "videoUrl": "https://www.youtube.com/embed/IJ0EUwvfwEI",
+          "thumbnailUrl": "https://img.youtube.com/vi/IJ0EUwvfwEI/0.jpg",
+          "channel": "Crypto World",
+          "date": "2 tuần trước"
+        },
+        {
+          "title": "CARDANO & ETHEREUM Are Showing Us the PATH FOR ALTCOINS",
+          "description": "Những phân tích về Cardano và Ethereum và ảnh hưởng của chúng đến các đồng altcoin.",
+          "videoUrl": "https://www.youtube.com/embed/x9Fh8hoN0UU",
+          "thumbnailUrl": "https://img.youtube.com/vi/x9Fh8hoN0UU/0.jpg",
+          "channel": "Crypto World",
+          "date": "3 tuần trước"
+        }
+    ],
+    "trading": [
+      {
+        "title": "Cuộc đua của các blockchain Non-EVM | 68 Trading x Coin68TV x Sui Foundation",
+        "description": "Các blockchain EVM và Non-EVM có điểm gì khác biệt? Và điều gì khiến các blockchain Non-EVM trở nên hấp dẫn đối với các nhà đầu tư hơn. Trong buổi livestream hôm nay, hãy cùng Jason Lê | admin của 68 Trading cùng với 2 vị khác mời đặc biệt đến từ Coin68 và Sui Foundation.",
+        "videoUrl": "https://www.youtube.com/embed/XynManlcqnU",
+        "thumbnailUrl": "https://img.youtube.com/vi/XynManlcqnU/0.jpg",
+        "channel": "GEMM TV",
+        "date": "3 tuần trước"
+      },
+      {
+        "title": "Thực chiến Trading #2: Hỗ trợ và Kháng cự trong giao dịch (phần 1)",
+        "description": "Thực chiến Trading #2: Hỗ trợ và Kháng cự trong giao dịch (phần 1)",
+        "videoUrl": "https://www.youtube.com/embed/JGgOXcQTRqk",
+        "thumbnailUrl": "https://img.youtube.com/vi/JGgOXcQTRqk/0.jpg",
+        "channel": "GEMM TV",
+        "date": "3 tuần trước"
+      },
+      {
+        "title": "Thực chiến Trading #1: Sử dụng xu hướng, hỗ trợ, kháng cự hiệu quả hơn!",
+        "description": "Các blockchain EVM và Non-EVM có điểm gì khác biệt? Và điều gì khiến các blockchain Non-EVM trở nên hấp dẫn đối với các nhà đầu tư hơn. Trong buổi livestream hôm nay, hãy cùng Jason Lê | admin của 68 Trading cùng với 2 vị khác mời đặc biệt đến từ Coin68 và Sui Foundation.",
+        "videoUrl": "https://www.youtube.com/embed/fDXbVQQ76b0",
+        "thumbnailUrl": "https://img.youtube.com/vi/fDXbVQQ76b0/0.jpg",
+        "channel": "GEMM TV",
+        "date": "3 tuần trước"
+      },
+      {
+        "title": "Mê Tài Chính | #1 Lehman Brothers: Câu chuyện đắng lòng về sự sụp đổ và những hệ lụy tài chính",
+        "description": "Các blockchain EVM và Non-EVM có điểm gì khác biệt? Và điều gì khiến các blockchain Non-EVM trở nên hấp dẫn đối với các nhà đầu tư hơn. Trong buổi livestream hôm nay, hãy cùng Jason Lê | admin của 68 Trading cùng với 2 vị khác mời đặc biệt đến từ Coin68 và Sui Foundation.",
+        "videoUrl": "https://www.youtube.com/embed/On2eOZGZmpc",
+        "thumbnailUrl": "https://img.youtube.com/vi/On2eOZGZmpc/0.jpg",
+        "channel": "GEMM TV",
+        "date": "3 tuần trước"
+      }
+    ],
+    "discussion": [
+      {
+        "title": "DeFi Discussion ep.111: 'Xin cảm ơn'",
+        "videoUrl": "https://www.youtube.com/embed/7ejbYVUMykE",
+        "thumbnailUrl": "https://img.youtube.com/vi/7ejbYVUMykE/0.jpg",
+        "channel": "GEMM TV",
+        "date": "3 tuần trước"
+      },
+      {
+        "title": "DeFi Discussion ep.112: Narratives nào... sẽ 'cất cánh'?",
+        "videoUrl": "https://www.youtube.com/embed/i4ueXVtYCIY",
+        "thumbnailUrl": "https://img.youtube.com/vi/i4ueXVtYCIY/0.jpg",
+        "channel": "GEMM TV",
+        "date": "1 tháng trước"
+      },
+      {
+        "title": "DeFi Discussion ep.113: Pectra và những tác động lên hệ sinh thái Ethereum",
+        "videoUrl": "https://www.youtube.com/embed/Sm3HXaYi_BI",
+        "thumbnailUrl": "https://img.youtube.com/vi/Sm3HXaYi_BI/0.jpg",
+        "channel": "GEMM TV",
+        "date": "3 tháng trước"
+      },
+      {
+        "title": "DeFi Discussion ep.114: Based Rollups... có tiềm năng gì?",
+        "videoUrl": "https://www.youtube.com/embed/qzVJ8tbs0Ec",
+        "thumbnailUrl": "https://img.youtube.com/vi/qzVJ8tbs0Ec/0.jpg",
+        "channel": "GEMM TV",
+        "date": "5 tháng trước"
+      }
+    ],
+    "crypto_knowledge": [
+      {
+        "title": "Crypto và AI: Tìm vàng trong cơn sốt",
+        "videoUrl": "https://www.youtube.com/embed/5KPhBqFz3UE",
+        "thumbnailUrl": "https://img.youtube.com/vi/5KPhBqFz3UE/0.jpg",
+        "channel": "GEMM TV",
+        "date": "1 tuần trước"
+      },
+      {
+        "title": "Top 5 khái niệm kinh tế - tài chính quan trọng mà bạn nên biết",
+        "videoUrl": "https://www.youtube.com/embed/I7mUQYZ_AFQ",
+        "thumbnailUrl": "https://img.youtube.com/vi/I7mUQYZ_AFQ/0.jpg",
+        "channel": "GEMM TV",
+        "date": "2 tuần trước"
+      },
+      {
+        "title": "Nhật Bản, Carry Trade và những điều chưa kể",
+        "videoUrl": "https://www.youtube.com/embed/r8lqaztT-Zs",
+        "thumbnailUrl": "https://img.youtube.com/vi/r8lqaztT-Zs/0.jpg",
+        "channel": "GEMM TV",
+        "date": "3 tuần trước"
+      },
+      {
+        "title": "Crypto và AI: Tìm vàng trong cơn sốt",
+        "videoUrl": "https://www.youtube.com/embed/5KPhBqFz3UE",
+        "thumbnailUrl": "https://img.youtube.com/vi/5KPhBqFz3UE/0.jpg",
+        "channel": "GEMM TV",
+        "date": "4 tuần trước"
+      }
+    ]
+}

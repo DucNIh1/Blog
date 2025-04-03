@@ -48,8 +48,8 @@ const CryptoNews = () => {
                     <div className="article-card">
                         <img src={article.imageUrl} alt={article.title} />
                         <div className="article-content">
-                            <h3>{article.title}</h3>
-                            <p>{article.description}</p>
+                            <h3 className='text-ellipsis overflow-hidden line-clamp-2'>{article.title}</h3>
+                            <p className='text-ellipsis overflow-hidden line-clamp-2'>{article.description}</p>
                         </div>
                     </div>
                 </a>

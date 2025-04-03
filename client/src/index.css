@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+/* slick carousel CSS */
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
 body {
   /* font-family: "Poppins", serif; */
   font-family: "Mona Sans", sans-serif;
