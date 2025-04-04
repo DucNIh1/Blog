@@ -45,7 +45,7 @@ const Categories = () => {
     mutationFn: async (id) => {
       try {
         const res = await axiosConfig.delete(`/api/category/${id}`);
-        toast.success(res.data?.message || "Xóa thành công");
+        toast.success("Xóa thành công");
         setOpenDelete(false);
       } catch (error) {
         toast.error("Xóa thất bại");
@@ -63,7 +63,7 @@ const Categories = () => {
         const res = await axiosConfig.patch(`/api/category/${id}`, {
           isActive,
         });
-        toast.success(res.data?.message);
+        toast.success("Cập nhật thành công");
       } catch (error) {
         console.log(error);
       }
@@ -106,8 +106,8 @@ const Categories = () => {
           className="outline-none py-2 px-4 rounded-md cursor-pointer border border-gray-200 focus:border-[#e7423e] text-sm text-gray-800 bg-white shadow-sm transition-all hover:shadow"
         >
           <option value="">Tất cả trạng thái</option>
-          <option value={1}>Kích hoạt</option>
-          <option value={0}>Không kích hoạt</option>
+          <option value={1}>Hoạt động</option>
+          <option value={0}>Không hoạt động</option>
         </select>
 
         <button
@@ -153,10 +153,10 @@ const Categories = () => {
                   className={`px-4 py-2 rounded-md outline-none border cursor-pointer text-sm transition-all ${statusColors[category.isActive ? 'active' : 'inactive']}`}
                 >
                   <option value={1} className="text-gray-800 bg-white">
-                    Kích hoạt
+                    Hoạt động
                   </option>
                   <option value={0} className="text-gray-800 bg-white">
-                    Không kích hoạt
+                    Không hoạt động
                   </option>
                 </select>
 

@@ -43,7 +43,7 @@ const Write = () => {
   };
 
   const handleClick = async (status) => {
-    toast.info("Please wait a second! It'll take some time⌛...");
+    toast.info("Vui lòng chờ trong giây lát⌛...");
     const imgURL = await uploadImage();
     setPreviewImage(imgURL || previewImage);
     const url = state ? `/api/posts/${state?.id}` : "/api/posts";
@@ -60,7 +60,11 @@ const Write = () => {
           status,
         },
       });
-      toast.success(res.data?.message);
+      if (state) {
+        toast.success("Cập nhật bài viết thành công");
+        return;
+      }
+      toast.success("Tạo mới bài viết thành công");
     } catch (error) {
       toast.error("Something went wrong!");
       console.log(error);

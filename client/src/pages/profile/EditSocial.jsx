@@ -28,7 +28,6 @@ const EditSocial = () => {
           github_url: github,
           ig_url: ig,
         });
-        console.log(res);
         toast.success(res.data?.message);
       } catch (error) {
         console.log(error);
@@ -38,8 +37,6 @@ const EditSocial = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(fb, github, ig);
-
     updateSocialMutation.mutate();
   };
 

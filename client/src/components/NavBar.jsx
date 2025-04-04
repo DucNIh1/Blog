@@ -94,7 +94,7 @@ const Navbar = () => {
       )}
       <header className="flex items-center justify-between w-full px-20 text-gray-900 fixed top-0 left-0 z-50 bg-[#e44241]">
         <h1 className="text-2xl font-bold text-primaryText">
-          <Link to={"/"}>GEMME.</Link>
+          <Link to={"/"}>Coin68.</Link>
         </h1>
         <Nav categories={categories} />
         <div className="items-center hidden gap-5 lg:flex">

@@ -33,7 +33,7 @@ const PostCard = ({ post, size = 'md' }) => {
             </h3>
             <p className="mb-4 text-gray-600 teaser">{post?.teaser}</p>
             <div className="w-full h-[1px] bg-gray-100 mb-4"></div>
-            <p className="flex items-end  text-[#495057] ">By: {post?.username}</p>
+            <p className="flex items-end  text-[#495057] ">Tác giả: {post?.username}</p>
           </div>
         </article>
       }
@@ -78,7 +78,7 @@ const PostCard = ({ post, size = 'md' }) => {
               className="object-cover w-full h-full transition-all duration-150 ease-in-out hover:scale-110 brightness-[70%]"
             />
           </Link>
-          <div className="absolute p-1 text-gray-200 bg-black bg-opacity-40 top-1 right-1 text-sm">
+          <div className="absolute p-1 text-sm text-gray-200 bg-black bg-opacity-40 top-1 right-1">
             {moment(post?.created_at).format("MMM Do YY")}
           </div>
           <div className="flex flex-col py-2">
@@ -94,29 +94,29 @@ const PostCard = ({ post, size = 'md' }) => {
             </h3>
           </div>
         </article>}
-        {size === 'xs' &&
-          <article className="flex items-center justify-between gap-2 overflow-hidden">
-            <Link
-              to={`/post/${post?.id}`}
-              className="block max-w-[120px] overflow-hidden aspect-video"
-            >
-              <img
-                loading="lazy"
-                src={post?.img}
-                alt={post?.title}
-                className="object-cover w-full h-full transition-all duration-150 ease-in-out hover:scale-110 brightness-[70%]"
-              />
-            </Link>
-            <div className="flex flex-col py-2">
-              <h3 className="flex-1 mb-2 text-xs font-semibold text-black">
-                <Link to={`/post/${post?.id}`}>
-                  <p className="line-clamp-3 overflow-hidden text-ellipsis hover:text-[#bd3838]" title={post?.title}>{post?.title}</p>
-                </Link>
-              </h3>
-            </div>
-          </article>}
+      {size === 'xs' &&
+        <article className="flex items-center justify-between gap-2 overflow-hidden">
+          <Link
+            to={`/post/${post?.id}`}
+            className="block max-w-[120px] overflow-hidden aspect-video"
+          >
+            <img
+              loading="lazy"
+              src={post?.img}
+              alt={post?.title}
+              className="object-cover w-full h-full transition-all duration-150 ease-in-out hover:scale-110 brightness-[70%]"
+            />
+          </Link>
+          <div className="flex flex-col py-2">
+            <h3 className="flex-1 mb-2 text-xs font-semibold text-black">
+              <Link to={`/post/${post?.id}`}>
+                <p className="line-clamp-3 overflow-hidden text-ellipsis hover:text-[#bd3838]" title={post?.title}>{post?.title}</p>
+              </Link>
+            </h3>
+          </div>
+        </article>}
     </React.Fragment>
-    
+
   );
 };
 

@@ -14,7 +14,7 @@ const MyPosts = () => {
   }, []);
 
   return (
-    <div className="mb-20">
+    <div className="my-20">
       <h1 className="mb-10 text-2xl font-medium text-slate-900">Bài đăng của tôi</h1>
       <div className="flex gap-5 mb-10" ref={locationRef}>
         <NavLink

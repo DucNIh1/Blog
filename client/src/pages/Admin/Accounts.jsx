@@ -40,9 +40,8 @@ const Accounts = () => {
   const deleteMutation = useMutation({
     mutationFn: async (id) => {
       try {
-        console.log(id);
         const res = await axiosConfig.delete(`/api/users/${id}`);
-        toast.success(res.data?.message || "Xóa thành công");
+        toast.success("Xóa thành công");
         setOpenDelete(null);
       } catch (error) {
         toast.error("Xóa thất bại");
@@ -60,8 +59,7 @@ const Accounts = () => {
         const res = await axiosConfig.patch(`/api/users/${id}/active`, {
           isActive,
         });
-        toast.success(res.data?.message);
-        console.log(res);
+        toast.success("Cập nhật thành công");
       } catch (error) {
         console.log(error);
       }
@@ -77,8 +75,7 @@ const Accounts = () => {
         const res = await axiosConfig.patch(`/api/users/${id}/role`, {
           role,
         });
-        toast.success(res.data?.message);
-        console.log(res);
+        toast.success("Cập nhật thành công");
       } catch (error) {
         console.log(error);
       }
