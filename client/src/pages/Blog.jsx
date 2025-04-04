@@ -97,9 +97,12 @@ const Blog = () => {
   return (
     <div className="my-20">
       <div className="my-20">
-        <h1 className="mb-5 text-2xl font-medium uppercase  bg-gradient-to-r from-blue-400 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
-          Featured posts
-        </h1>
+        <div className="mb-8 flex items-center gap-2" ref={locationRef}>
+          <span className="h-2 w-10 bg-[#e44243] rounded-full"></span>
+          <h1 className="text-xl font-medium uppercase inline-block">
+            Bài viết nổi bật
+          </h1>
+        </div>
 
         <div className="slider-container w-full">
           <Slider
@@ -127,7 +130,7 @@ const Blog = () => {
                     <p className="flex-1 mt-2 text-sm font-light text-gray-700 teaser">
                       {f?.teaser}
                     </p>
-                    <button className="text-lg bg-gray-900 w-[200px] px-4 py-2 text-white hover:bg-opacity-70">
+                    <button className="text-lg bg-[#e44242] w-[200px] px-4 py-2 text-white hover:bg-opacity-70">
                       <Link to={`/post/${f?.id}`}> Read more</Link>
                     </button>
                   </div>
@@ -137,9 +140,12 @@ const Blog = () => {
         </div>
       </div>
 
-      <h1 className="mb-5 text-2xl font-medium uppercase  bg-gradient-to-r from-blue-400 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
-        All posts
-      </h1>
+      <div className="mb-8 flex items-center gap-2" ref={locationRef}>
+          <span className="h-2 w-10 bg-[#e44243] rounded-full"></span>
+          <h1 className="text-xl font-medium uppercase inline-block">
+            Tất cả bài viết
+          </h1>
+        </div>
       <div
         className="grid grid-cols-1 gap-20 mb-10 md:grid-cols-2 lg:grid-cols-3"
         ref={locationRef}
