@@ -97,14 +97,14 @@ const Blog = () => {
   return (
     <div className="my-20">
       <div className="my-20">
-        <div className="mb-8 flex items-center gap-2" ref={locationRef}>
+        <div className="flex items-center gap-2 mb-8" ref={locationRef}>
           <span className="h-2 w-10 bg-[#e44243] rounded-full"></span>
-          <h1 className="text-xl font-medium uppercase inline-block">
+          <h1 className="inline-block text-xl font-medium uppercase">
             Bài viết nổi bật
           </h1>
         </div>
 
-        <div className="slider-container w-full">
+        <div className="w-full slider-container">
           <Slider
             {...sliderSettings}
             {...{ infinite: featuredPosts?.length > 1 }}
@@ -124,14 +124,14 @@ const Blog = () => {
                     <p className="text-sm text-teal-600 ">
                       {moment(f?.updated_at).format("MMM Do YY")}
                     </p>
-                    <h2 className="mt-2 text-xl font-semibold hover:text-teal-500">
+                    <h2 className="mt-2 text-xl font-semibold hover:text-[#e44242]">
                       <Link to={`/post/${f?.id}`}>{f?.title}</Link>
                     </h2>
                     <p className="flex-1 mt-2 text-sm font-light text-gray-700 teaser">
                       {f?.teaser}
                     </p>
                     <button className="text-lg bg-[#e44242] w-[200px] px-4 py-2 text-white hover:bg-opacity-70">
-                      <Link to={`/post/${f?.id}`}> Read more</Link>
+                      <Link to={`/post/${f?.id}`}> Xem thêm</Link>
                     </button>
                   </div>
                 </div>
@@ -140,12 +140,12 @@ const Blog = () => {
         </div>
       </div>
 
-      <div className="mb-8 flex items-center gap-2" ref={locationRef}>
-          <span className="h-2 w-10 bg-[#e44243] rounded-full"></span>
-          <h1 className="text-xl font-medium uppercase inline-block">
-            Tất cả bài viết
-          </h1>
-        </div>
+      <div className="flex items-center gap-2 mb-8" ref={locationRef}>
+        <span className="h-2 w-10 bg-[#e44243] rounded-full"></span>
+        <h1 className="inline-block text-xl font-medium uppercase">
+          Tất cả bài viết
+        </h1>
+      </div>
       <div
         className="grid grid-cols-1 gap-20 mb-10 md:grid-cols-2 lg:grid-cols-3"
         ref={locationRef}

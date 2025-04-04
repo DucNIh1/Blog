@@ -5,8 +5,8 @@ import Pagination from "../../components/Pagination";
 import moment from "moment";
 import DeleteModal from "../../components/DeleteModal";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
-import { RiSearchLine } from "react-icons/ri";
+import { Link, useNavigate } from "react-router-dom";
+import { RiSearchLine, RiEditLine } from "react-icons/ri";
 
 const statusColors = {
   draft: "border-gray-400 text-gray-700 bg-gray-50",
@@ -14,6 +14,7 @@ const statusColors = {
 };
 
 const Posts = () => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [openDelete, setOpenDelete] = useState(false);
   const [page, setPage] = useState(1);
@@ -107,6 +108,7 @@ const Posts = () => {
       queryClient.invalidateQueries(["posts"]);
     },
   });
+
 
   useEffect(() => {
     setPage(1);
@@ -266,6 +268,14 @@ const Posts = () => {
                     Xuất bản
                   </option>
                 </select>
+
+                <Link
+                  to={'/write'}
+                  state={post}
+                  className="flex items-center justify-center gap-1 px-4 py-2 text-sm font-medium text-white transition-all bg-blue-500 rounded-md shadow-sm hover:bg-opacity-90 hover:shadow"
+                >
+                  <RiEditLine className="size-4" />
+                </Link>
 
                 <button
                   className="px-4 py-2 bg-[#e7423e] rounded-md text-white hover:bg-opacity-90 transition-all text-sm font-medium shadow-sm hover:shadow"

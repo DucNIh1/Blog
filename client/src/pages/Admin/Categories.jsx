@@ -15,6 +15,10 @@ const statusColors = {
 const Categories = () => {
   const queryClient = useQueryClient();
   const [openDelete, setOpenDelete] = useState(false);
+  const [openCreateModal, setOpenCreateModal] = useState(false);
+  const [openUpdateModal, setOpenUpdateModal] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState("");
+  const [updateCategory, setUpdateCategory] = useState(null);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(null);
   const [status, setStatus] = useState(null);
@@ -73,13 +77,94 @@ const Categories = () => {
     },
   });
 
+  const updateCategoryMutation = useMutation({
+    mutationFn: async ({ id, name }) => {
+      try {
+        const res = await axiosConfig.patch(`/api/category/${id}`, {
+          name,
+        });
+        toast.success("Cập nhật danh mục thành công");
+        setOpenUpdateModal(false);
+        setUpdateCategory(null);
+        return res.data;
+      } catch (error) {
+        toast.error("Cập nhật danh mục thất bại");
+        console.log(error);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["categories", { page, status, name }]);
+    },
+  });
+
+  const createCategoryMutation = useMutation({
+    mutationFn: async (name) => {
+      try {
+        const res = await axiosConfig.post("/api/category", { name });
+        toast.success("Thêm danh mục thành công");
+        setOpenCreateModal(false);
+        setNewCategoryName("");
+        return res.data;
+      } catch (error) {
+        if (error.response?.data?.message === "This category already exists") {
+          toast.error("Danh mục này đã tồn tại");
+        } else {
+          toast.error("Thêm danh mục thất bại");
+        }
+        console.log(error);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["categories"]);
+    },
+  });
+
+  const handleCreateCategory = (e) => {
+    e.preventDefault();
+    if (!newCategoryName.trim()) {
+      toast.error("Vui lòng nhập tên danh mục");
+      return;
+    }
+    createCategoryMutation.mutate(newCategoryName);
+  };
+
+  const handleUpdateCategory = (e) => {
+    e.preventDefault();
+    if (!updateCategory.name.trim()) {
+      toast.error("Vui lòng nhập tên danh mục");
+      return;
+    }
+    updateCategoryMutation.mutate({
+      id: updateCategory.id,
+      name: updateCategory.name,
+    });
+  };
+
+  const handleOpenUpdateModal = (category) => {
+    setUpdateCategory({
+      id: category.id,
+      name: category.name,
+    });
+    setOpenUpdateModal(true);
+  };
+
   useEffect(() => {
     setPage(1);
   }, [status, name]);
 
   return (
     <div className="p-8 bg-white rounded-md shadow-md">
-      <h1 className="mb-10 text-2xl font-bold text-gray-800 border-b-2 border-[#e7423e] pb-3 inline-block">Tất cả danh mục</h1>
+      <div className="flex items-center justify-between mb-10">
+        <h1 className="text-2xl font-bold text-gray-800 border-b-2 border-[#e7423e] pb-3 inline-block">
+          Tất cả danh mục
+        </h1>
+        <button
+          onClick={() => setOpenCreateModal(true)}
+          className="px-4 py-2 bg-[#e7423e] rounded-md text-white hover:bg-opacity-90 transition-all text-sm font-medium shadow-sm hover:shadow flex items-center gap-1"
+        >
+          <span className="text-lg">+</span> Thêm danh mục
+        </button>
+      </div>
 
       <div className="flex items-center justify-center gap-4 mb-10">
         <div className="relative w-full max-w-md">
@@ -150,7 +235,8 @@ const Categories = () => {
                       isActive: e.target.value,
                     })
                   }
-                  className={`px-4 py-2 rounded-md outline-none border cursor-pointer text-sm transition-all ${statusColors[category.isActive ? 'active' : 'inactive']}`}
+                  className={`px-4 py-2 rounded-md outline-none border cursor-pointer text-sm transition-all ${statusColors[category.isActive ? "active" : "inactive"]
+                    }`}
                 >
                   <option value={1} className="text-gray-800 bg-white">
                     Hoạt động
@@ -160,12 +246,21 @@ const Categories = () => {
                   </option>
                 </select>
 
-                <button
-                  className="px-4 py-2 bg-[#e7423e] rounded-md text-white hover:bg-opacity-90 transition-all text-sm font-medium shadow-sm hover:shadow"
-                  onClick={() => setOpenDelete(category?.id)}
-                >
-                  Xóa
-                </button>
+                <div className="flex gap-2">
+                  <button
+                    className="px-4 py-2 text-sm font-medium text-white transition-all bg-blue-500 rounded-md shadow-sm hover:bg-opacity-90 hover:shadow"
+                    onClick={() => handleOpenUpdateModal(category)}
+                  >
+                    Sửa
+                  </button>
+
+                  <button
+                    className="px-4 py-2 bg-[#e7423e] rounded-md text-white hover:bg-opacity-90 transition-all text-sm font-medium shadow-sm hover:shadow"
+                    onClick={() => setOpenDelete(category?.id)}
+                  >
+                    Xóa
+                  </button>
+                </div>
 
                 <DeleteModal
                   setOpen={setOpenDelete}
@@ -184,6 +279,118 @@ const Categories = () => {
           <Pagination page={page} setPage={setPage} total={total} />
         </div>
       </div>
+
+      {/* Modal thêm danh mục */}
+      {openCreateModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-xl">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-bold text-gray-800">Thêm danh mục mới</h3>
+              <button
+                onClick={() => {
+                  setOpenCreateModal(false);
+                  setNewCategoryName("");
+                }}
+                className="text-xl text-gray-500 hover:text-gray-700"
+              >
+                &times;
+              </button>
+            </div>
+
+            <form onSubmit={handleCreateCategory}>
+              <div className="mb-4">
+                <label htmlFor="categoryName" className="block mb-2 text-sm font-medium text-gray-700">
+                  Tên danh mục
+                </label>
+                <input
+                  type="text"
+                  id="categoryName"
+                  value={newCategoryName}
+                  onChange={(e) => setNewCategoryName(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#e7423e] focus:border-transparent"
+                  placeholder="Nhập tên danh mục"
+                />
+              </div>
+
+              <div className="flex justify-end gap-3 mt-6">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpenCreateModal(false);
+                    setNewCategoryName("");
+                  }}
+                  className="px-4 py-2 text-sm font-medium text-gray-700 transition-all bg-gray-100 border border-gray-200 rounded-md hover:bg-gray-200"
+                >
+                  Hủy
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 text-sm font-medium text-white bg-[#e7423e] rounded-md hover:bg-opacity-90 transition-all"
+                  disabled={createCategoryMutation.isLoading}
+                >
+                  {createCategoryMutation.isLoading ? "Đang xử lý..." : "Thêm danh mục"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Modal sửa danh mục */}
+      {openUpdateModal && updateCategory && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-xl">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-bold text-gray-800">Sửa danh mục</h3>
+              <button
+                onClick={() => {
+                  setOpenUpdateModal(false);
+                  setUpdateCategory(null);
+                }}
+                className="text-xl text-gray-500 hover:text-gray-700"
+              >
+                &times;
+              </button>
+            </div>
+
+            <form onSubmit={handleUpdateCategory}>
+              <div className="mb-4">
+                <label htmlFor="updateCategoryName" className="block mb-2 text-sm font-medium text-gray-700">
+                  Tên danh mục
+                </label>
+                <input
+                  type="text"
+                  id="updateCategoryName"
+                  value={updateCategory.name}
+                  onChange={(e) => setUpdateCategory({ ...updateCategory, name: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#e7423e] focus:border-transparent"
+                  placeholder="Nhập tên danh mục"
+                />
+              </div>
+
+              <div className="flex justify-end gap-3 mt-6">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setOpenUpdateModal(false);
+                    setUpdateCategory(null);
+                  }}
+                  className="px-4 py-2 text-sm font-medium text-gray-700 transition-all bg-gray-100 border border-gray-200 rounded-md hover:bg-gray-200"
+                >
+                  Hủy
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 text-sm font-medium text-white transition-all bg-blue-500 rounded-md hover:bg-opacity-90"
+                  disabled={updateCategoryMutation.isLoading}
+                >
+                  {updateCategoryMutation.isLoading ? "Đang xử lý..." : "Cập nhật"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

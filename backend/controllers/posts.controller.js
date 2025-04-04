@@ -134,13 +134,12 @@ export const setFeaturedPost = catchAsync(async (req, res, next) => {
 
 // Delete post by id
 export const deletePost = catchAsync(async (req, res, next) => {
-  const { userId } = req.user;
 
   const id = req.params.id;
 
   let q = "DELETE  FROM posts WHERE id = ?"
 
-  const [result] = await pool.query(q, [id, userId]);
+  const [result] = await pool.query(q, [id]);
 
   if (result.affectedRows === 0) {
     return next(
