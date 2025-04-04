@@ -8,7 +8,9 @@
 ```bash
 docker compose --env-file backend/.env up -d
 ```
-
+```
+account admin: admin@gmail.com password: N112233n
+```
 - Run backend service:
 ```bash
 cd backend
