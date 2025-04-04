@@ -17,13 +17,10 @@ import { FaChevronDown } from "react-icons/fa";
 
 const NAV_LINKS = [
   {
-    "title": "Báo cáo",
+    "title": "Trang chủ",
     "to": "/"
   },
-  {
-    "title": "Sự kiện",
-    "to": "/"
-  },
+
   {
     "title": "Nổi bật",
     "to": "/featured"
@@ -60,14 +57,13 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       const res = await logout();
-      toast.success(res.data?.message || "Logout successfull");
+      toast.success("Đăng xuất thành công");
       navigate("/login");
     } catch (error) {
       console.log(error);
     }
   };
 
-  // xu li scroll
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 300) {
@@ -97,33 +93,33 @@ const Navbar = () => {
         </ScrollLink>
       )}
       <header className="flex items-center justify-between w-full px-20 text-gray-900 fixed top-0 left-0 z-50 bg-[#e44241]">
-          <h1 className="text-2xl font-bold text-primaryText">
-            <Link to={"/"}>GEMME.</Link>
-          </h1>
-          <Nav categories={categories} />
-          <div className="items-center hidden gap-5 lg:flex">
-            {user ? (
-              <>
-                <PersonDropdown user={user} handleLogout={handleLogout} />
-              </>
-            ) : (
-              <Link to="/login" className="text-white px-6 py-2 bg-black rounded-md hover:text-[#e44241] hover:bg-white transition-colors">
-                Login
-              </Link>
-            )}
-          </div>
-          <CiMenuFries
-            className="block font-medium cursor-pointer lg:hidden text-primaryText size-8"
-            onClick={() => setOpenMobile(true)}
-          />
-          <MobileMenu
-            to={"/my-posts"}
-            handleLogout={handleLogout}
-            user={user}
-            openMobile={openMobile}
-            setOpenMobile={setOpenMobile}
-            categories={categories}
-          />
+        <h1 className="text-2xl font-bold text-primaryText">
+          <Link to={"/"}>GEMME.</Link>
+        </h1>
+        <Nav categories={categories} />
+        <div className="items-center hidden gap-5 lg:flex">
+          {user ? (
+            <>
+              <PersonDropdown user={user} handleLogout={handleLogout} />
+            </>
+          ) : (
+            <Link to="/login" className="text-white px-6 py-2 bg-black rounded-md hover:text-[#e44241] hover:bg-white transition-colors">
+              Login
+            </Link>
+          )}
+        </div>
+        <CiMenuFries
+          className="block font-medium cursor-pointer lg:hidden text-primaryText size-8"
+          onClick={() => setOpenMobile(true)}
+        />
+        <MobileMenu
+          to={"/my-posts"}
+          handleLogout={handleLogout}
+          user={user}
+          openMobile={openMobile}
+          setOpenMobile={setOpenMobile}
+          categories={categories}
+        />
       </header>
     </React.Fragment>
   );
@@ -132,20 +128,6 @@ const Navbar = () => {
 const Nav = ({ categories = [] }) => {
   return (
     <div className="items-center hidden lg:flex">
-      <div className="group">
-        <NavLink
-          className={`text-primaryText overflow-hidden flex items-center gap-2 group-hover:bg-[#c2150f] hover:bg-[#c2150f] transition-colors p-5`}
-          to={`/`}
-        >
-          <span>Danh mục</span>
-          <FaChevronDown size={10}/>
-        </NavLink>
-        <div className="absolute top-full left-0 h-auto bg-[#c2150f] text-primaryText w-full hidden group-hover:flex items-center justify-center gap-4">
-          {categories.map(cat => {
-            return <Link key={cat.id} to={`/blog/${cat.id}`} className="p-4 inline-flex">{cat.name}</Link>
-          })}
-        </div>
-      </div>
       {NAV_LINKS.map(link => {
         return (
           <NavLink key={link.title} to={link.to} className="text-primaryText hover:bg-[#c2150f] transition-colors p-5">
@@ -153,6 +135,20 @@ const Nav = ({ categories = [] }) => {
           </NavLink>
         )
       })}
+      <div className="group">
+        <NavLink
+          className={`text-primaryText overflow-hidden flex items-center gap-2 group-hover:bg-[#c2150f] hover:bg-[#c2150f] transition-colors p-5`}
+          to={`/`}
+        >
+          <span>Danh mục</span>
+          <FaChevronDown size={10} />
+        </NavLink>
+        <div className="absolute top-full left-0 h-auto bg-[#c2150f] text-primaryText w-full hidden group-hover:flex items-center justify-center gap-4">
+          {categories.map(cat => {
+            return <Link key={cat.id} to={`/blog/${cat.id}`} className="inline-flex p-4">{cat.name}</Link>
+          })}
+        </div>
+      </div>
     </div>
   );
 };
