@@ -121,10 +121,10 @@ const Blog = () => {
                     className={`object-cover h-full  lg:w-2/3 max-h-[400px]`}
                   />
                   <div className="flex flex-col h-full gap-5 p-4 lg:w-1/3">
-                    <p className="text-sm text-teal-600 ">
+                    <p className="text-sm text-[#e44242]">
                       {moment(f?.updated_at).format("MMM Do YY")}
                     </p>
-                    <h2 className="mt-2 text-xl font-semibold hover:text-[#e44242]">
+                    <h2 className="mt-2 text-xl font-semibold hover:text-[#e44242] transition-colors">
                       <Link to={`/post/${f?.id}`}>{f?.title}</Link>
                     </h2>
                     <p className="flex-1 mt-2 text-sm font-light text-gray-700 teaser">
