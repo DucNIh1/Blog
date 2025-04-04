@@ -20,10 +20,7 @@ import Posts from "./pages/Admin/Posts";
 import Accounts from "./pages/Admin/Accounts";
 import Protect from "./components/Protect";
 import Categories from "./pages/Admin/Categories";
-import ResetPassword from "./pages/ResetPassword";
-import ForgotPassword from "./pages/ForgotPassword";
 import EditProfile from "./pages/profile/EditProfile";
-import EditPassword from "./pages/profile/EditPassword";
 import EditSocial from "./pages/profile/EditSocial";
 import Profile from "./pages/profile/Profile";
 import Draft from "./pages/MyPosts/Draft";
@@ -105,14 +102,6 @@ const router = createBrowserRouter([
           {
             path: "edit-profile",
             element: <EditProfile />,
-          },
-          {
-            path: "password",
-            element: <EditPassword />,
-          },
-          {
-            path: "password",
-            element: <EditPassword />,
           },
           {
             path: "social-profiles",

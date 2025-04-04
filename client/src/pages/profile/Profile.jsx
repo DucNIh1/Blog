@@ -112,7 +112,7 @@ const Profile = () => {
                 open={openDelete}
                 setOpen={setOpenDelete}
                 onClick={deleteMeMutation.mutate}
-                title="We’re sorry to see you go😥"
+                title="Chúng tôi xin lỗi khi thấy bạn đi😥"
               />
             </li>
           </ul>
