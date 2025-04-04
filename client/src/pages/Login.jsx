@@ -20,14 +20,9 @@ const Login = () => {
     try {
       setIsLoading(true);
       const res = await login({ email: email, password: password });
-      if (res.data.id) {
-        toast.success(res.data?.message);
-        setIsLoading(false);
-        return;
-      }
       setIsLoading(false);
       navigate("/");
-      toast.success(res.data?.message || "Đăng nhập thành công");
+      toast.success("Đăng nhập thành công");
     } catch (error) {
       setIsLoading(false);
       toast.error("Tài khoản hoặc mật khẩu không chính xác");

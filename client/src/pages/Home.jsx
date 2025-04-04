@@ -75,22 +75,22 @@ const Home = () => {
       <div className="flex items-start justify-between gap-4 mb-10 h-[80vh]">
         <div className="flex-[8]">
           {/* All posts */}
-          {posts?.length && 
+          {posts?.length &&
             <div className="grid grid-cols-2 gap-4">
-              <PostCard post={posts[0]} size="lg"/>
-              <PostCard post={posts[1]} size="lg"/>
+              <PostCard post={posts[0]} size="lg" />
+              <PostCard post={posts[1]} size="lg" />
               <div className="col-span-2 flex items-stretch justify-between gap-4 [&_article]:flex-1">
-               {posts.filter((_, idx) => 2 <= idx && idx <= 5).map((post, index) => <PostCard key={index} post={post} size="sm" />)}
+                {posts.filter((_, idx) => 2 <= idx && idx <= 5).map((post, index) => <PostCard key={index} post={post} size="sm" />)}
               </div>
-          </div>}
+            </div>}
         </div>
         <div className="flex-[2] h-full overflow-hidden flex flex-col bg-[#ffebe6] rounded-md p-4">
           <div className="flex items-center gap-2">
             <span className="h-2 w-10 bg-[#e44243] rounded-full"></span>
             <h3 className="text-xl">Hot news</h3>
           </div>
-          <div className="flex-1 overflow-auto mt-4">
-            <div className="w-full flex flex-col gap-4">
+          <div className="flex-1 mt-4 overflow-auto">
+            <div className="flex flex-col w-full gap-4">
               {posts?.filter((_, idx) => idx > 5).map((post, index) => <PostCard key={index} post={post} size="xs" />)}
             </div>
           </div>
@@ -99,24 +99,24 @@ const Home = () => {
       <div className="mb-10">
         <CryptoTicker />
       </div>
-      
+
       <div>
         {categories?.length && categories.map(category => {
           const postsByCategory = posts?.filter(p => p.cat_id === category.id)?.slice(0, 4);
           return (
             <React.Fragment key={category.id}>
-              {postsByCategory?.length > 0 && 
+              {postsByCategory?.length > 0 &&
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="h-2 w-10 bg-[#e44243] rounded-full"></span>
                     <h3 className="text-xl">{category.name}</h3>
                   </div>
-                  <div className="grid grid-cols-4 gap-x-4 mt-4">
+                  <div className="grid grid-cols-4 mt-4 gap-x-4">
                     {postsByCategory.map(post => {
-                      return <PostCard key={post.id} post={post} size="sm"/>
+                      return <PostCard key={post.id} post={post} size="sm" />
                     })}
                   </div>
-              </div>}
+                </div>}
             </React.Fragment>
           )
         })}

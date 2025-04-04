@@ -25,14 +25,18 @@ const Register = () => {
         email: email,
         password: password,
       });
-      setUserId(res.data?.id);
       setIsLoading(false);
 
-      setOpenVerify(true);
-      toast.success(res.data?.message || "Register successful");
+      toast.success("Đăng kí tài khoản thành công");
       navigate('/login')
     } catch (error) {
+      if (error?.response?.status === 409) {
+        toast.error("Tài khoản đã tồn tại");
+        setIsLoading(false)
+        return
+      }
       toast.error(error?.response?.data?.message || "Error Register Failed");
+      setIsLoading(false)
     }
   };
 
