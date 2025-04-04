@@ -37,9 +37,9 @@ const Layout = () => {
   const { openProfile, setOpenProfile } = useContext(AuthContext);
 
   return (
-    <div className="relative">
+    <div className="relative" name="top">
       <NavBar openProfile={openProfile} setOpenProfile={setOpenProfile} />
-      <div className="container px-5 pt-[64px] mx-auto md:px-10 lg:px-20">
+      <div className="container px-5 pt-[64px] mx-auto md:px-10 lg:px-20 min-h-screen">
         <Outlet />
       </div>
       <Footer />

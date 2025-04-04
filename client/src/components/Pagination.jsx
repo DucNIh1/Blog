@@ -22,7 +22,7 @@ const Pagination = ({ page, setPage, total }) => {
         pageRangeDisplayed={5}
         onPageChange={(e) => setPage(e.selected + 1)}
         containerClassName={"pagination flex gap-3 items-center"}
-        activeClassName={"active  bg-black"}
+        activeClassName={"active bg-[#e44242]"}
       />
     </div>
   );

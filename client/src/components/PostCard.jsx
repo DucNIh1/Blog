@@ -24,11 +24,11 @@ const PostCard = ({ post, size = 'md' }) => {
           </div>
           <div className="flex flex-col py-4 h-[320px]">
             <div className="flex items-center justify-between mb-2">
-              <span className={`px-2 py-1 text-xs text-gray-700  bg-slate-100`}>
+              <span className={`px-2 py-1 text-xs text-gray-200 bg-[#e44242] transition-colors`}>
                 {post?.category_name}
               </span>
             </div>
-            <h3 className="flex-1 mb-2 text-lg font-semibold hover:text-teal-500 ">
+            <h3 className="flex-1 mb-2 text-lg font-semibold hover:text-[#e44242] transition-colors">
               <Link to={`/post/${post?.id}`}>{post?.title}</Link>
             </h3>
             <p className="mb-4 text-gray-600 teaser">{post?.teaser}</p>
