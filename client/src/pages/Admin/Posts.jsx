@@ -8,11 +8,9 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { RiSearchLine } from "react-icons/ri";
 
-// Màu sắc trạng thái được cập nhật để phù hợp với chủ đề mới
 const statusColors = {
   draft: "border-gray-400 text-gray-700 bg-gray-50",
   published: "border-green-600 text-green-700 bg-green-50",
-  pending: "border-yellow-500 text-yellow-700 bg-yellow-50",
 };
 
 const Posts = () => {
@@ -20,7 +18,6 @@ const Posts = () => {
   const [openDelete, setOpenDelete] = useState(false);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(null);
-  //filter
   const [status, setStatus] = useState(null);
   const [category, setCategory] = useState(null);
   const [sort, setSort] = useState(null);
@@ -54,7 +51,7 @@ const Posts = () => {
     mutationFn: async (id) => {
       try {
         const res = await axiosConfig.delete(`/api/posts/${id}`);
-        toast.success(res.data?.message || "Xóa thành công");
+        toast.success("Xóa thành công");
         setOpenDelete(false);
       } catch (error) {
         toast.error("Xóa thất bại");
@@ -72,7 +69,7 @@ const Posts = () => {
         const res = await axiosConfig.patch(`/api/posts/${id}/status`, {
           status,
         });
-        toast.success(res.data?.message);
+        toast.success("Cập nhật thành công");
       } catch (error) {
         console.log(error);
       }
@@ -101,7 +98,7 @@ const Posts = () => {
           isFeatured,
           cat,
         });
-        toast.success(res.data?.message);
+        toast.success("Cập nhật thành công");
       } catch (error) {
         toast.error(error.response.data?.message || "Đã xảy ra lỗi!");
       }
@@ -145,8 +142,7 @@ const Posts = () => {
         >
           <option value="">Tất cả trạng thái</option>
           <option value="draft">Bản nháp</option>
-          <option value="pending">Đang chờ</option>
-          <option value="published">Đã xuất bản</option>
+          <option value="published">Xuất bản</option>
         </select>
 
         <select
@@ -266,11 +262,8 @@ const Posts = () => {
                   <option value="draft" className="text-gray-800 bg-white">
                     Bản nháp
                   </option>
-                  <option value="pending" className="text-gray-800 bg-white">
-                    Đang chờ
-                  </option>
                   <option value="published" className="text-gray-800 bg-white">
-                    Đã xuất bản
+                    Xuất bản
                   </option>
                 </select>
 

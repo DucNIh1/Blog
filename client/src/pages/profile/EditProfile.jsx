@@ -26,7 +26,6 @@ const EditProfile = () => {
     queryFn: async () => {
       try {
         const res = await axiosConfig.get("/api/users/get-me");
-        console.log(res);
         return res.data?.user;
       } catch (error) {
         console.log(error);

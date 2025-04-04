@@ -39,7 +39,7 @@ const Layout = () => {
   return (
     <div className="relative" name="top">
       <NavBar openProfile={openProfile} setOpenProfile={setOpenProfile} />
-      <div className="container px-5 pt-[64px] mx-auto md:px-10 lg:px-20 min-h-screen">
+      <div className="container min-h-screen px-5 pt-24 mx-auto md:px-10 lg:px-20">
         <Outlet />
       </div>
       <Footer />
@@ -71,7 +71,7 @@ const router = createBrowserRouter([
       {
         path: "/write",
         element: (
-          <Protect>
+          <Protect allowedRoles={["admin"]}>
             <Write />
           </Protect>
         ),
@@ -79,7 +79,7 @@ const router = createBrowserRouter([
       {
         path: "/my-posts",
         element: (
-          <Protect>
+          <Protect allowedRoles={["admin"]}>
             <MyPosts />
           </Protect>
         ),
@@ -160,14 +160,7 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
-  {
-    path: "/reset-password/:token",
-    element: <ResetPassword />,
-  },
-  {
-    path: "/forgot-password",
-    element: <ForgotPassword />,
-  },
+
 ]);
 
 const App = () => {

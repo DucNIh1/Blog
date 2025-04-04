@@ -43,7 +43,7 @@ const Footer = () => {
           <ul className="flex items-center gap-4 mt-2 [&>li]:cursor-pointer">
             {SOCIAL_MEDIAS.map(item => {
               return (
-                <li title={item.title} key={item.title} className="hover:text-white transition-colors">
+                <li title={item.title} key={item.title} className="transition-colors hover:text-white">
                   <item.icon />
                 </li>
               )
@@ -53,7 +53,7 @@ const Footer = () => {
       </div>
 
       <div className="flex justify-between gap-2 text-sm font-medium text-slate-300">
-        <p>Copyright © 2025 by GEMME.</p>
+        <p>Copyright © 2025 by Coin68.</p>
         <p>All Rights Reserved</p>
       </div>
     </div>
